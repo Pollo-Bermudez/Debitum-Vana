@@ -3,7 +3,7 @@
 # Game Design Document (GDD)
 ## Telemática 
 
-<img src="./images/UdeC_2LC Blanco.png" alt="alt text" width="300px">
+<img src="./images/UdeC_2LC Verde 364.png" alt="alt text" width="300px">
 
 ### Alumnos:
 - **AGUILAR VAZQUEZ JESUS ANGEL**  
