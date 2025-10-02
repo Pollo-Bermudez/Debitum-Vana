@@ -1,6 +1,7 @@
 
-#####
+
 # Game Design Document (GDD)
+
 ## Telemática 
 
 <img src="./images/UdeC_2LC Verde 364.png" alt="alt text" width="300px">
