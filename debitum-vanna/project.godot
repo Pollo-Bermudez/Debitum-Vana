@@ -14,3 +14,19 @@ config/name="Debitum-Vanna"
 run/main_scene="uid://dywlo3ov13umj"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://Actors/": "pink",
+"res://Actors/enemies/": "orange",
+"res://Actors/player/": "yellow",
+"res://Assets/": "purple",
+"res://Assets/nivel-1/": "red",
+"res://Assets/nivel-2/": "red",
+"res://Assets/nivel-3/": "red",
+"res://Assets/pantalla-Carga/": "green",
+"res://Assets/pre-Pantalla-Carga/": "green",
+"res://Global/": "gray",
+"res://UI/": "blue"
+}
