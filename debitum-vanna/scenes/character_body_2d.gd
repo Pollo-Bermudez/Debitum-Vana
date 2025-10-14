@@ -3,9 +3,16 @@ extends CharacterBody2D
 @export var move_speed: float = 200.0
 @export var jump_speed: float = 700.0
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
+@onready var camera: Camera2D = $Camera2D  # ← AGREGAR ESTA LÍNEA
 
 var is_facing_right = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+func _ready():
+	# ← AGREGAR ESTA FUNCIÓN
+	camera.enabled = true
+	camera.position_smoothing_enabled = true
+	camera.position_smoothing_speed = 5.0
 
 func _physics_process(delta):
 	jump(delta)
