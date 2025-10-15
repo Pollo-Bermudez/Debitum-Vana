@@ -1,0 +1,119 @@
+[gd_scene load_steps=16 format=3 uid="uid://cnlcfua5os1sf"]
+
+[ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
+[ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
+[ext_resource type="Texture2D" uid="uid://cc27c1yv1mr3d" path="res://ground.png" id="2_rus8k"]
+[ext_resource type="Script" uid="uid://y1u464fd4j2j" path="res://scenes/enemy.gd" id="4_pa8r4"]
+[ext_resource type="Texture2D" uid="uid://dntpt47dunqkp" path="res://sprites/Fantasma/Caminata 1.png" id="5_2y5yt"]
+[ext_resource type="Texture2D" uid="uid://cef3eru6n7gqd" path="res://sprites/Fantasma/Gemini_Generated_Image_w5cro5w5cro5w5cr.png" id="5_15mv3"]
+[ext_resource type="Texture2D" uid="uid://dytrg14lly482" path="res://sprites/Fantasma/Caminata 3.png" id="6_2os1m"]
+[ext_resource type="Texture2D" uid="uid://4awjbitsxmuy" path="res://sprites/Fantasma/Gemini_Generated_Image_lhbxjelhbxjelhbx.png" id="6_e3sih"]
+[ext_resource type="Texture2D" uid="uid://cnesrcj8xnp3x" path="res://sprites/Fantasma/Gemini_Generated_Image_w5cro5w5cro5w5cr(1).png" id="7_2y5yt"]
+[ext_resource type="Texture2D" uid="uid://dn410halpouad" path="res://sprites/Fantasma/Caminata 2.png" id="7_go7sj"]
+[ext_resource type="Texture2D" uid="uid://dhexdtaijjb2r" path="res://sprites/Fantasma/Idle 1.png" id="9_2os1m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xbjy"]
+size = Vector2(3133, 215)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rus8k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_2os1m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_go7sj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2y5yt")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_15mv3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2os1m")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_e3sih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2y5yt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_go7sj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2os1m")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pa8r4"]
+size = Vector2(69, 115)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_15mv3"]
+size = Vector2(654.5, 211)
+
+[node name="level1" type="Node2D"]
+script = ExtResource("1_rus8k")
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_bswci")]
+position = Vector2(105, 575)
+collision_mask = 3
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(609, 51)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(723, 750)
+scale = Vector2(13.85, 4.0125)
+texture = ExtResource("2_rus8k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(860.5, 744.5)
+shape = SubResource("RectangleShape2D_5xbjy")
+
+[node name="Enemy" type="CharacterBody2D" parent="."]
+position = Vector2(8, -5)
+collision_layer = 2
+script = ExtResource("4_pa8r4")
+
+[node name="PatrolTimer" type="Timer" parent="Enemy"]
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
+position = Vector2(2164.0002, 618)
+scale = Vector2(0.11347296, 0.101780996)
+sprite_frames = SubResource("SpriteFrames_rus8k")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(2161, 617)
+shape = SubResource("RectangleShape2D_pa8r4")
+
+[node name="Timer" type="Timer" parent="Enemy"]
+wait_time = 1.5
+one_shot = true
+
+[node name="AttackArea" type="Area2D" parent="Enemy" groups=["player"]]
+position = Vector2(2176, 610)
+collision_layer = 2
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/AttackArea"]
+position = Vector2(4, -11)
+shape = SubResource("RectangleShape2D_15mv3")
