@@ -9,6 +9,7 @@ var is_facing_right = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
+	add_to_group("player")
 	camera.enabled = true
 	camera.position_smoothing_enabled = true
 	camera.position_smoothing_speed = 5.0
@@ -51,8 +52,8 @@ func move_x():
 	
 func recibir_dano(cantidad):
 	print("🔥 El jugador recibió ", cantidad, " de daño")
-	var nivel = get_tree().get_current_scene().get_node("level1") 
-	if nivel:
+	var nivel = get_tree().get_current_scene()
+	if nivel and nivel.name == "level1":
 		nivel.lose_life()
 	else:
 		print("⚠️ No se encontró el nodo 'Level_1' en la escena actual.")

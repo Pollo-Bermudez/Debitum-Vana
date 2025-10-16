@@ -61,10 +61,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pa8r4"]
-size = Vector2(69, 115)
+size = Vector2(75, 103.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_15mv3"]
-size = Vector2(654.5, 211)
+size = Vector2(89, 130.5)
 
 [node name="level1" type="Node2D"]
 script = ExtResource("1_rus8k")
@@ -88,34 +88,36 @@ position = Vector2(860.5, 744.5)
 shape = SubResource("RectangleShape2D_5xbjy")
 
 [node name="Enemy" type="CharacterBody2D" parent="."]
-position = Vector2(37, 14)
-collision_layer = 2
+position = Vector2(2277, 616)
 script = ExtResource("4_pa8r4")
 
 [node name="PatrolTimer" type="Timer" parent="Enemy"]
 autostart = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
-position = Vector2(2164.0002, 618)
+position = Vector2(1.0002441, 12)
 scale = Vector2(0.11347296, 0.101780996)
 sprite_frames = SubResource("SpriteFrames_rus8k")
 animation = &"walk"
+frame = 1
+frame_progress = 0.6639931
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-position = Vector2(2161, 617)
+position = Vector2(3, 8)
 shape = SubResource("RectangleShape2D_pa8r4")
 
 [node name="Timer" type="Timer" parent="Enemy"]
-wait_time = 1.5
+wait_time = 0.05
 one_shot = true
+autostart = true
 
 [node name="AttackArea" type="Area2D" parent="Enemy" groups=["player"]]
-position = Vector2(2176, 610)
+position = Vector2(21, -8)
 collision_layer = 2
 priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/AttackArea"]
-position = Vector2(4, -11)
+position = Vector2(-18.5, 29.25)
 shape = SubResource("RectangleShape2D_15mv3")
 
 [connection signal="body_entered" from="Enemy/AttackArea" to="Enemy" method="_on_AttackArea_body_entered"]

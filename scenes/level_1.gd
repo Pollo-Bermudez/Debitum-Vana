@@ -1,4 +1,3 @@
-# En tu nivel principal (Level_1.gd)
 extends Node2D
 
 # Variables del juego
@@ -6,8 +5,9 @@ var player_lives = 3
 var player_coins = 0
 var lives_label: Label
 var coins_label: Label
-var player: Node2D  # Referencia al jugador
-var death_y_limit = 1200  # Coordenada Y límite para morir (ajústala según tu nivel)
+var player: Node2D  
+var death_y_limit = 1200 
+var spawn_position: Vector2 = Vector2(0, 0)
 
 func _ready():
 	create_instant_hud()
@@ -16,6 +16,9 @@ func _ready():
 	player = get_node_or_null("Player") # asegúrate de que el nodo del jugador se llame "Player"
 	if player == null:
 		push_warning("⚠️ No se encontró el nodo del jugador. Verifica el nombre en el árbol de la escena.")
+	else:
+		# 🛑 1. Guardar la posición inicial del jugador (se ejecuta solo una vez)
+		spawn_position = player.global_position	
 
 func _process(delta):
 	if player:
@@ -25,6 +28,7 @@ func check_player_fall():
 	# Si el jugador cae por debajo del límite del mapa
 	if player.global_position.y > death_y_limit:
 		lose_life()
+		# 🛑 3. CORRECCIÓN: Llamamos respawn_player sin argumentos, como está definida abajo
 		respawn_player()
 
 func create_instant_hud():
@@ -53,19 +57,23 @@ func add_coin():
 func lose_life():
 	player_lives -= 1
 	lives_label.text = "❤️ Vidas: " + str(player_lives)
+	
 	#if player_lives <= 0:
 	#	game_over()
 
 func respawn_player():
-	# Reinicia al jugador en un punto seguro
+	# 🛑 2. USO DE SPAWN_POSITION: Reinicia al jugador en el punto de spawn guardado
 	if player:
-		player.global_position = Vector2(500, 500)  # Ajusta la posición inicial
-		print("☠️ El jugador cayó y perdió una vida")
+		player.global_position = spawn_position # <-- Usa la posición guardada
+		print("☠️ El jugador regresó al spawn.")
+		
+
+func handle_player_damage():
+	# 🛑 4. Lógica de daño: resta vida y llama a respawn_player
+	lose_life()
+	respawn_player() # <-- Llama a respawn sin el argumento 'false'
+	print("🤕 El jugador recibió daño y regresó al spawn.")
 
 #func game_over():
 #	print("💀 Game Over!")
 #	get_tree().change_scene_to_file("res://Scenes/GameOver.tscn") # o puedes mostrar un menú
-
-
-func _on_attack_area_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
