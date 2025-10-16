@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnlcfua5os1sf"]
+[gd_scene load_steps=17 format=3 uid="uid://cnlcfua5os1sf"]
 
 [ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
 [ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
@@ -66,6 +66,9 @@ size = Vector2(75, 103.25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_15mv3"]
 size = Vector2(89, 130.5)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2os1m"]
+radius = 389.40082
+
 [node name="level1" type="Node2D"]
 script = ExtResource("1_rus8k")
 
@@ -89,6 +92,7 @@ shape = SubResource("RectangleShape2D_5xbjy")
 
 [node name="Enemy" type="CharacterBody2D" parent="."]
 position = Vector2(2277, 616)
+collision_layer = 2
 script = ExtResource("4_pa8r4")
 
 [node name="PatrolTimer" type="Timer" parent="Enemy"]
@@ -98,11 +102,12 @@ autostart = true
 position = Vector2(1.0002441, 12)
 scale = Vector2(0.11347296, 0.101780996)
 sprite_frames = SubResource("SpriteFrames_rus8k")
-animation = &"walk"
+animation = &"attack"
 frame = 1
-frame_progress = 0.6639931
+frame_progress = 0.759318
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+visible = false
 position = Vector2(3, 8)
 shape = SubResource("RectangleShape2D_pa8r4")
 
@@ -112,6 +117,7 @@ one_shot = true
 autostart = true
 
 [node name="AttackArea" type="Area2D" parent="Enemy" groups=["player"]]
+visible = false
 position = Vector2(21, -8)
 collision_layer = 2
 priority = 1
@@ -119,5 +125,11 @@ priority = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/AttackArea"]
 position = Vector2(-18.5, 29.25)
 shape = SubResource("RectangleShape2D_15mv3")
+
+[node name="VisionArea" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/VisionArea"]
+position = Vector2(4, -2)
+shape = SubResource("CircleShape2D_2os1m")
 
 [connection signal="body_entered" from="Enemy/AttackArea" to="Enemy" method="_on_AttackArea_body_entered"]
