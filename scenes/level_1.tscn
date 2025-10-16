@@ -70,7 +70,7 @@ size = Vector2(654.5, 211)
 script = ExtResource("1_rus8k")
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("1_bswci")]
-position = Vector2(105, 575)
+position = Vector2(158, 553)
 collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -88,7 +88,7 @@ position = Vector2(860.5, 744.5)
 shape = SubResource("RectangleShape2D_5xbjy")
 
 [node name="Enemy" type="CharacterBody2D" parent="."]
-position = Vector2(8, -5)
+position = Vector2(37, 14)
 collision_layer = 2
 script = ExtResource("4_pa8r4")
 
@@ -117,3 +117,5 @@ priority = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/AttackArea"]
 position = Vector2(4, -11)
 shape = SubResource("RectangleShape2D_15mv3")
+
+[connection signal="body_entered" from="Enemy/AttackArea" to="Enemy" method="_on_AttackArea_body_entered"]
