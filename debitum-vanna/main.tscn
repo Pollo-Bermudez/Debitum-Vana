@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://dobvs8pjomgcp"]
+
+[ext_resource type="Script" uid="uid://xrh8f8j0u56f" path="res://main/main.gd" id="1_0xm2m"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_top = -3.0
+offset_right = 39.0
+offset_bottom = 37.0
+script = ExtResource("1_0xm2m")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 110.0
+offset_right = 1372.0
+offset_bottom = 810.0
+expand_mode = 1
+
+[node name="Timer" type="Timer" parent="."]
