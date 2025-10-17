@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cnlcfua5os1sf"]
+[gd_scene load_steps=20 format=3 uid="uid://cnlcfua5os1sf"]
 
 [ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
 [ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://4awjbitsxmuy" path="res://sprites/Fantasma/Gemini_Generated_Image_lhbxjelhbxjelhbx.png" id="6_e3sih"]
 [ext_resource type="Texture2D" uid="uid://cnesrcj8xnp3x" path="res://sprites/Fantasma/Gemini_Generated_Image_w5cro5w5cro5w5cr(1).png" id="7_2y5yt"]
 [ext_resource type="Texture2D" uid="uid://dn410halpouad" path="res://sprites/Fantasma/Caminata 2.png" id="7_go7sj"]
+[ext_resource type="Texture2D" uid="uid://bx8brfb4wo0s0" path="res://sprites/Fantasma/golpe 1.png" id="9_2aecg"]
 [ext_resource type="Texture2D" uid="uid://dhexdtaijjb2r" path="res://sprites/Fantasma/Idle 1.png" id="9_2os1m"]
+[ext_resource type="Texture2D" uid="uid://ccrlmq1bildek" path="res://sprites/Fantasma/golpe 2.png" id="10_6dial"]
 [ext_resource type="PackedScene" uid="uid://f0pjrdjyvjmw" path="res://poeta.tscn" id="12_go7sj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5xbjy"]
@@ -19,9 +21,6 @@ size = Vector2(3133, 215)
 [sub_resource type="SpriteFrames" id="SpriteFrames_rus8k"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_2os1m")
-}, {
 "duration": 1.0,
 "texture": ExtResource("7_go7sj")
 }, {
@@ -45,6 +44,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("9_2aecg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_6dial")
+}],
+"loop": true,
+"name": &"punch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("6_e3sih")
 }, {
 "duration": 1.0,
@@ -62,10 +72,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pa8r4"]
-size = Vector2(75, 103.25)
+size = Vector2(104.5, 138.8125)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_15mv3"]
-size = Vector2(89, 130.5)
+size = Vector2(121.5, 158.25)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2os1m"]
 radius = 389.40082
@@ -78,6 +88,8 @@ position = Vector2(158, 553)
 collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Timer" type="Timer" parent="Player"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(609, 51)
@@ -100,14 +112,15 @@ script = ExtResource("4_pa8r4")
 autostart = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
-position = Vector2(1.0002441, 12)
-scale = Vector2(0.11347296, 0.101780996)
+position = Vector2(-9.2982025, -12.444063)
+scale = Vector2(0.13620684, 0.1495233)
 sprite_frames = SubResource("SpriteFrames_rus8k")
-animation = &"walk"
+animation = &"punch"
+frame = 1
+frame_progress = 0.022633055
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-visible = false
-position = Vector2(3, 8)
+position = Vector2(-4, -11.59375)
 shape = SubResource("RectangleShape2D_pa8r4")
 
 [node name="Timer" type="Timer" parent="Enemy"]
@@ -116,20 +129,22 @@ one_shot = true
 autostart = true
 
 [node name="AttackArea" type="Area2D" parent="Enemy" groups=["player"]]
-visible = false
 position = Vector2(21, -8)
 collision_layer = 2
 priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/AttackArea"]
-position = Vector2(-18.5, 29.25)
+position = Vector2(-26.75, -0.125)
 shape = SubResource("RectangleShape2D_15mv3")
 
 [node name="VisionArea" type="Area2D" parent="Enemy"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/VisionArea"]
 position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
+
+[node name="PunchTimer" type="Timer" parent="Enemy"]
 
 [node name="Poeta" parent="." instance=ExtResource("12_go7sj")]
 position = Vector2(2881, 613)

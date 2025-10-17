@@ -5,19 +5,19 @@ var player_lives = 3
 var player_coins = 0
 var lives_label: Label
 var coins_label: Label
-var player: Node2D  
-var death_y_limit = 1200 
+var player = Node2D
+var death_y_limit = 1200
 var spawn_position: Vector2 = Vector2(0, 0)
 
 func _ready():
 	create_instant_hud()
 	
 	# Buscar el nodo del jugador en la escena
-	player = get_node_or_null("Player") # asegúrate de que el nodo del jugador se llame "Player"
+	player = get_node_or_null("Player")
 	if player == null:
 		push_warning("⚠️ No se encontró el nodo del jugador. Verifica el nombre en el árbol de la escena.")
 	else:
-		# 🛑 1. Guardar la posición inicial del jugador (se ejecuta solo una vez)
+		# 1. Guardar la posición inicial del jugador (se ejecuta solo una vez)
 		spawn_position = player.global_position	
 
 func _process(delta):
@@ -28,7 +28,6 @@ func check_player_fall():
 	# Si el jugador cae por debajo del límite del mapa
 	if player.global_position.y > death_y_limit:
 		lose_life()
-		# 🛑 3. CORRECCIÓN: Llamamos respawn_player sin argumentos, como está definida abajo
 		respawn_player()
 
 func create_instant_hud():
@@ -62,17 +61,11 @@ func lose_life():
 	#	game_over()
 
 func respawn_player():
-	# 🛑 2. USO DE SPAWN_POSITION: Reinicia al jugador en el punto de spawn guardado
+	# USO CORRECTO DE SPAWN_POSITION: Esto solo se usa cuando el jugador cae (check_player_fall).
 	if player:
-		player.global_position = spawn_position # <-- Usa la posición guardada
-		print("☠️ El jugador regresó al spawn.")
+		player.global_position = spawn_position # Usa la posición guardada
+		print("☠️ El jugador cayó y regresó al spawn.")
 		
-
-func handle_player_damage():
-	# 🛑 4. Lógica de daño: resta vida y llama a respawn_player
-	lose_life()
-	respawn_player() # <-- Llama a respawn sin el argumento 'false'
-	print("🤕 El jugador recibió daño y regresó al spawn.")
 
 #func game_over():
 #	print("💀 Game Over!")
