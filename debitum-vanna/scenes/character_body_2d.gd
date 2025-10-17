@@ -3,13 +3,13 @@ extends CharacterBody2D
 @export var move_speed: float = 200.0
 @export var jump_speed: float = 700.0
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
-@onready var camera: Camera2D = $Camera2D  # ← AGREGAR ESTA LÍNEA
+@onready var camera: Camera2D = $Camera2D  
 
 var is_facing_right = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	# ← AGREGAR ESTA FUNCIÓN
+	add_to_group("player")
 	camera.enabled = true
 	camera.position_smoothing_enabled = true
 	camera.position_smoothing_speed = 5.0
@@ -49,3 +49,11 @@ func flip():
 func move_x():
 	var input_axis = Input.get_axis("move_left", "move_right")
 	velocity.x = input_axis * move_speed
+	
+func recibir_dano(cantidad):
+	print("🔥 El jugador recibió ", cantidad, " de daño")
+	var nivel = get_tree().get_current_scene()
+	if nivel and nivel.name == "level1":
+		nivel.lose_life()
+	else:
+		print("⚠️ No se encontró el nodo 'Level_1' en la escena actual.")
