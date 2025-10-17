@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://f0pjrdjyvjmw"]
+
+[ext_resource type="Script" uid="uid://bgx28vo1xfwpb" path="res://scenes/poeta.gd" id="1_bnp10"]
+[ext_resource type="Texture2D" uid="uid://d3hipv5q5jsro" path="res://sprites/Poeta/poeta_idle_0 (1).png" id="2_qvmvp"]
+[ext_resource type="Texture2D" uid="uid://d0bmmytge0for" path="res://sprites/Poeta/poeta_idle_1 (1).png" id="3_5aiaj"]
+[ext_resource type="Texture2D" uid="uid://bjvhtm0emidk1" path="res://sprites/Poeta/poeta_idle_2 (1).png" id="4_g8jsj"]
+[ext_resource type="Texture2D" uid="uid://bhecdmqj1386u" path="res://sprites/Poeta/poeta_idle_3 (1).png" id="5_h84of"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_adm10"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5aiaj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_qvmvp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_g8jsj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_h84of")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d1u0h"]
+radius = 34.0
+height = 148.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k38dq"]
+radius = 113.004425
+
+[node name="Poeta" type="CharacterBody2D"]
+position = Vector2(782, 445)
+collision_layer = 2
+script = ExtResource("1_bnp10")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1.9073486e-06)
+scale = Vector2(0.15462963, 0.14861114)
+sprite_frames = SubResource("SpriteFrames_adm10")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.27702665
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 2)
+shape = SubResource("CapsuleShape2D_d1u0h")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(4, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-2, 1)
+shape = SubResource("CircleShape2D_k38dq")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://6glwmv3ssr3j"]
+
+[ext_resource type="Script" uid="uid://bhlbqp33itfgt" path="res://dialogos_ui.gd" id="1_q8liu"]
+
+[node name="DialogosUI" type="CanvasLayer"]
+script = ExtResource("1_q8liu")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -402.0
+offset_right = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -348.0
+offset_right = -100.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0

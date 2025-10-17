@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cnlcfua5os1sf"]
+[gd_scene load_steps=18 format=3 uid="uid://cnlcfua5os1sf"]
 
 [ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
 [ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cnesrcj8xnp3x" path="res://sprites/Fantasma/Gemini_Generated_Image_w5cro5w5cro5w5cr(1).png" id="7_2y5yt"]
 [ext_resource type="Texture2D" uid="uid://dn410halpouad" path="res://sprites/Fantasma/Caminata 2.png" id="7_go7sj"]
 [ext_resource type="Texture2D" uid="uid://dhexdtaijjb2r" path="res://sprites/Fantasma/Idle 1.png" id="9_2os1m"]
+[ext_resource type="PackedScene" uid="uid://f0pjrdjyvjmw" path="res://poeta.tscn" id="12_go7sj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5xbjy"]
 size = Vector2(3133, 215)
@@ -102,9 +103,7 @@ autostart = true
 position = Vector2(1.0002441, 12)
 scale = Vector2(0.11347296, 0.101780996)
 sprite_frames = SubResource("SpriteFrames_rus8k")
-animation = &"attack"
-frame = 1
-frame_progress = 0.759318
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 visible = false
@@ -131,5 +130,8 @@ shape = SubResource("RectangleShape2D_15mv3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/VisionArea"]
 position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
+
+[node name="Poeta" parent="." instance=ExtResource("12_go7sj")]
+position = Vector2(2881, 613)
 
 [connection signal="body_entered" from="Enemy/AttackArea" to="Enemy" method="_on_AttackArea_body_entered"]
