@@ -1,3 +1,53 @@
-[gd_scene format=3 uid="uid://cwlgw5bahonm7"]
+[gd_scene load_steps=5 format=3 uid="uid://cwlgw5bahonm7"]
 
-[node name="Menu" type="Node2D"]
+[ext_resource type="Script" uid="uid://cymw3a4cfxrvq" path="res://menu_inicial/menu.gd" id="1_f0mwm"]
+[ext_resource type="Texture2D" uid="uid://32e24ug5g8nn" path="res://menu_inicial/assets/menu.jpeg" id="2_ofii6"]
+[ext_resource type="AudioStream" uid="uid://b5mpi0o478tap" path="res://menu_inicial/assets/piano.mp3" id="3_72qfb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_72qfb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ofii6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_f0mwm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(800.49994, 456.74997)
+scale = Vector2(1.0423177, 0.94775385)
+sprite_frames = SubResource("SpriteFrames_72qfb")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 692.0
+offset_top = 534.0
+offset_right = 916.0
+offset_bottom = 627.0
+theme_override_font_sizes/font_size = 30
+text = "Jugar"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+offset_right = 1599.0
+offset_bottom = 901.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_72qfb")
+autoplay = true
+parameters/looping = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

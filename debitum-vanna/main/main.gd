@@ -8,11 +8,12 @@ extends Control
 @export var proxima_escena_path: String = "res://menu_inicial/menu.tscn"
 
 # Nuevo: Tiempo que dura cada parte del fade (aparecer y desaparecer)
-@export var fade_duration: float = 0.2 
+@export var fade_duration: float = 0.01 
 
 # Referencias a nuestros nodos
 @onready var texture_rect = $TextureRect
 @onready var timer = $Timer
+@onready var audio = $AudioStreamPlayer2D
 
 # --- VARIABLES DE ESTADO ---
 var estado_actual = 1
@@ -32,6 +33,8 @@ func _ready():
 	
 	# 4. Iniciamos el timer
 	timer.start()
+	
+	audio.play()
 
 # Esta función se llamará CADA VEZ que el timer llegue a 0.4s
 func _on_timer_timeout():
@@ -43,15 +46,15 @@ func _on_timer_timeout():
 	# Aumentamos el contador de estado
 	estado_actual += 1
 	
-	if estado_actual == 2:
+	if estado_actual == 4:
 		# Han pasado 0.4s: Hacemos fade al estado 2
 		_fade_to_new_texture(logo_estado_2) # <--- CAMBIADO
 	
-	elif estado_actual == 3:
+	elif estado_actual == 6:
 		# Hacemos fade al estado 3
 		_fade_to_new_texture(logo_estado_3) # <--- CAMBIADO
 
-	elif estado_actual == 6:
+	elif estado_actual == 15:
 		# Han pasado X segundos: Terminamos
 		timer.stop() # Detenemos el timer
 		
@@ -90,7 +93,7 @@ func _fade_out_and_change_scene():
 	var tween = create_tween()
 	
 	# Hacemos que el logo final se desvanezca por completo
-	tween.tween_property(texture_rect, "modulate", Color(1, 1, 1, 0), fade_duration)
+	tween.tween_property(texture_rect, "modulate", Color(0.0, 0.0, 0.0, 1.0), fade_duration)
 	
 	# Cuando el logo haya desaparecido... cambiamos de escena
 	tween.tween_callback(func():
