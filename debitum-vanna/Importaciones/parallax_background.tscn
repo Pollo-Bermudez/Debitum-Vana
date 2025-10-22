@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnwgkmsfpn6fi"]
+
+[ext_resource type="Script" uid="uid://3tgvpces7rjf" path="res://scenes/parallax_2d.gd" id="1_k0cdi"]
+[ext_resource type="Texture2D" uid="uid://7ybgafgqqfbk" path="res://TileMap/Fondo.png" id="2_syhwc"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+follow_viewport_enabled = true
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0, 0)
+scroll_offset = Vector2(-1045, 462)
+repeat_size = Vector2(1536, 0)
+repeat_times = 15
+follow_viewport = false
+script = ExtResource("1_k0cdi")
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(-2, -373)
+texture = ExtResource("2_syhwc")
+centered = false
