@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=4 path="res://b4br44x88fw4g"]
+[gd_scene load_steps=6 format=4 uid="uid://6xt0us7n1stm"]
 
-[ext_resource type="Texture2D" path="res://2mdhdk7dtkrm" path="res://TileMap/set2gotico.png" id="1_pkpbh"]
-[ext_resource type="Texture2D" path="res://dyra0kqq27yem" path="res://TileMap/set3gotico.png" id="2_r2tpu"]
+[ext_resource type="Texture2D" uid="uid://2mdhdk7dtkrm" path="res://TileMap/set2gotico.png" id="1_pkpbh"]
+[ext_resource type="Texture2D" uid="uid://dyra0kqq27yem" path="res://TileMap/set3gotico.png" id="2_r2tpu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8ld0"]
 texture = ExtResource("1_pkpbh")
