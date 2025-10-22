@@ -31,7 +31,7 @@ func fade_to_scene(scene_path: String, duration: float = 0.5):
 
 
 # En el Inspector, define la ruta a la siguiente escena
-@export var proxima_escena_path: String = "res://main/main.tscn"
+@export var proxima_escena_path: String = "res://pre-game/pre-game.tscn"
 
 # Esta es tu función del botón "Jugar"
 func _on_button_pressed():

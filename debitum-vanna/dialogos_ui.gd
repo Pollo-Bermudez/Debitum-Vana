@@ -14,7 +14,7 @@ func _ready():
 
 func _input(event):
 	# Si la caja es visible y presionamos "interactuar"...
-	if caja_dialogo.visible and Input.is_action_just_pressed("interact"):
+	if caja_dialogo.visible and Input.is_action_pressed("interact"):
 		mostrar_siguiente_linea()
 
 # Función para que otros (como el NPC) puedan llamarla
