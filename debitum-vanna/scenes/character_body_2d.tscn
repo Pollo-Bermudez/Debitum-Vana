@@ -1,9 +1,26 @@
-[gd_scene load_steps=28 format=3 uid="uid://bhiakd3rkh31t"]
+[gd_scene load_steps=33 format=3 uid="uid://bhiakd3rkh31t"]
 
 [ext_resource type="Script" uid="uid://7uitorxkhwbx" path="res://scenes/character_body_2d.gd" id="1_g2brh"]
 [ext_resource type="Texture2D" uid="uid://dn68ckwnubobu" path="res://sprites/Player/Gemini_Generated_Image_1tz1jf1tz1jf1tz1-removebg-preview.png" id="2_4vejd"]
+[ext_resource type="Texture2D" uid="uid://dibllmyh6fyt5" path="res://sprites/Player/Gemini_Generated_Image_7sr9517sr9517sr9 (1) (1).png" id="2_ws0vm"]
 [ext_resource type="Texture2D" uid="uid://mdygtsjh8nve" path="res://sprites/Player/Gemini_Generated_Image_t8f0irt8f0irt8f0-removebg-preview.png" id="3_ws0vm"]
 [ext_resource type="Texture2D" uid="uid://w4n1ssbr0gky" path="res://sprites/Player/Gemini_Generated_Image_f8d55lf8d55lf8d5-removebg-preview.png" id="4_rhr3r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhr3r"]
+atlas = ExtResource("2_ws0vm")
+region = Rect2(0, 171, 117, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t53lx"]
+atlas = ExtResource("2_ws0vm")
+region = Rect2(117, 171, 117, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33wo8"]
+atlas = ExtResource("2_ws0vm")
+region = Rect2(234, 171, 117, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsbhr"]
+atlas = ExtResource("2_ws0vm")
+region = Rect2(351, 171, 117, 166)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4vejd"]
 atlas = ExtResource("2_4vejd")
@@ -91,6 +108,23 @@ region = Rect2(426, 0, 71, 500)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_33wo8"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhr3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t53lx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33wo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsbhr")
+}],
+"loop": false,
+"name": &"dash",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4vejd")
@@ -184,8 +218,13 @@ move_speed = 500.0
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_33wo8")
-animation = &"fall"
+animation = &"dash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -11.5)
 shape = SubResource("RectangleShape2D_lj8jo")
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
