@@ -7,20 +7,27 @@ extends CharacterBody2D
 
 # --- Variables de Dash ---
 @export var dash_speed: float = 1200.0
-@export var dash_duration: float = 0.15 # Cuántos segundos dura
+@export var dash_duration: float = 0.15
 # -------------------------
+
+# --- Variables de Disparo ---
+@export var shoot_cooldown: float = 0.4                  # Tiempo de recarga
+@export var bullet_scene: PackedScene                    # Escena de la bala
+# ----------------------------
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 @onready var camera: Camera2D = $Camera2D
-@onready var dash_timer: Timer = $DashTimer # <-- NUEVO: Referencia al nodo Timer para la duración del dash
+@onready var dash_timer: Timer = $DashTimer
+@onready var shoot_timer: Timer = $ShootTimer            # 🛑 NUEVO: Referencia al nodo Timer de Disparo
 
 var is_facing_right = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_stunned: bool = false
-var knockback_timer: Timer = null
+var knockback_timer: Timer = null                        # Usado para crear el Timer en _ready
+var can_shoot: bool = true                              # 🛑 NUEVO: Bandera para disparar
 
 # --- Estados de Dash ---
-var is_dashing: bool = false 
+var is_dashing: bool = false
 var has_dashed_in_air: bool = false
 # -----------------------
 
@@ -30,12 +37,17 @@ func _ready():
 	camera.position_smoothing_enabled = true
 	camera.position_smoothing_speed = 5.0
 	
-	# Configurar el timer del dash con nuestra variable @export
-	dash_timer.wait_time = dash_duration # <-- NUEVO
+	# Configuración del Timer de Dash
+	dash_timer.wait_time = dash_duration
+	dash_timer.timeout.connect(_on_dash_timer_timeout)
 	
-	# El timer de knockback sigue creándose en código (como lo tenías)
-	# Lo movemos aquí para que siempre exista y no se cree en cada golpe.
-	knockback_timer = Timer.new() # <-- MODIFICADO: Quitamos el "if null" y creamos siempre.
+	# 🛑 Configuración del Timer de Disparo
+	shoot_timer.wait_time = shoot_cooldown
+	shoot_timer.one_shot = true
+	shoot_timer.timeout.connect(_on_shoot_timer_timeout)
+	
+	# Configuración del Timer de Knockback
+	knockback_timer = Timer.new()
 	add_child(knockback_timer)
 	knockback_timer.one_shot = true
 	knockback_timer.wait_time = 0.2
@@ -47,18 +59,18 @@ func _physics_process(delta):
 	
 	if is_on_floor():
 		has_dashed_in_air = false
+		
 	# --- Lógica de Dash ---
-	# Permite dash si no está ya haciendo dash, no está aturdido y está en el suelo.
-	# Puedes quitar "and is_on_floor()" si quieres hacer dash en el aire.
-	if Input.is_action_just_pressed("dash") and not is_dashing and not is_stunned and not has_dashed_in_air: 
+	if Input.is_action_just_pressed("dash") and not is_dashing and not is_stunned and not has_dashed_in_air:
 		start_dash()
 	# -----------------------
 	
 	if is_dashing:
-		# No hacemos nada más, el dash maneja la velocidad
+		# En dash, solo aplicamos el movimiento del dash
 		pass
 	elif not is_stunned:
 		move_x()
+		handle_shooting() # 🛑 Llamar a la lógica de disparo
 		
 	flip()
 	update_animations()
@@ -66,10 +78,16 @@ func _physics_process(delta):
 	
 func update_animations():
 	# --- Animación de Dash ---
-	if is_dashing: 
-		animated_sprite.play("dash") 
-		return 
+	if is_dashing:
+		animated_sprite.flip_h = true
+		animated_sprite.play("dash")
+		return
 	# -------------------------
+	
+	# 🛑 Animación de Disparo (Launch)
+	if not can_shoot and shoot_timer.time_left > 0.0: # Muestra launch mientras el cooldown está activo
+		animated_sprite.play("launch")
+		return
 		
 	if not is_on_floor():
 		if velocity.y < 0:
@@ -84,16 +102,16 @@ func update_animations():
 		animated_sprite.play("idle")
 
 func jump(delta):
-	# Prevenir salto durante el dash
-	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_stunned and not is_dashing: # <-- MODIFICADO
+	# Prevenir salto durante el dash y aturdimiento
+	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_stunned and not is_dashing:
 		velocity.y = -jump_speed
 		
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
 func flip():
-	# Prevenir flip durante el dash (opcional, pero se ve mejor)
-	if is_dashing: return # <-- NUEVO
+	# Prevenir flip durante el dash
+	if is_dashing: return
 	
 	if (is_facing_right and velocity.x < 0) or (not is_facing_right and velocity.x > 0):
 		animated_sprite.flip_h = not animated_sprite.flip_h
@@ -104,40 +122,71 @@ func move_x():
 	velocity.x = input_axis * move_speed
 	
 # ----------------------------------------------------------------------
-# NUEVAS FUNCIONES DE DASH
+# FUNCIONES DE DASH
 # ----------------------------------------------------------------------
 
 func start_dash():
 	is_dashing = true
 	if not is_on_floor():
 		has_dashed_in_air = true
-	# Determinar dirección del dash
+	
 	var dash_direction = 1.0
 	if not is_facing_right:
 		dash_direction = -1.0
-	
-	# Opcional: permitir que la tecla de movimiento elija la dirección
-	# var input_axis = Input.get_axis("move_left", "move_right")
-	# if input_axis != 0:
-	# 	dash_direction = sign(input_axis)
 
 	velocity.x = dash_direction * dash_speed
-	velocity.y = 0 # Dash horizontal, ignora gravedad temporalmente (o hazlo más fuerte si quieres dash en el aire)
+	velocity.y = 0
 	
-	dash_timer.start() # Inicia el timer que determinará la duración del dash
+	dash_timer.start()
 
-# Esta función se conectó desde el editor (Paso 3 en las instrucciones anteriores)
 func _on_dash_timer_timeout():
 	is_dashing = false
-	# Detenerse bruscamente al final del dash
 	velocity.x = 0
-	# Si quieres un desvanecimiento de la velocidad, podrías poner velocity.x = velocity.x * 0.5 o similar.
+
+# ----------------------------------------------------------------------
+# 🛑 FUNCIONES DE DISPARO
+# ----------------------------------------------------------------------
+
+func handle_shooting():
+	if Input.is_action_just_pressed("shoot") and can_shoot:
+		shoot()
+
+func shoot():
+	if bullet_scene == null:
+		push_warning("Bullet scene no está asignada.")
+		return
+		
+	# 1. Iniciar Cooldown
+	can_shoot = false
+	shoot_timer.start()
+	
+	# 2. Instanciar la bala
+	var bullet = bullet_scene.instantiate()
+	get_parent().add_child(bullet)
+
+	# 3. Posicionar la bala
+	var shoot_offset = Vector2(20, -10) # Ajusta este offset
+	if not is_facing_right:
+		shoot_offset.x *= -1
+
+	bullet.global_position = global_position + shoot_offset
+
+	# 4. Darle velocidad
+	var direction = 1 if is_facing_right else -1
+	if bullet.has_method("set_direction"):
+		bullet.set_direction(direction)
+
+func _on_shoot_timer_timeout():
+	can_shoot = true
 
 # ----------------------------------------------------------------------
 # FUNCIONES DE DAÑO Y KNOCKBACK
 # ----------------------------------------------------------------------
 
 func recibir_dano_knockback(cantidad: int, enemy_position: Vector2):
+	# Prevenir knockback si estás haciendo dash (comportamiento común de invencibilidad)
+	if is_dashing: return 
+	
 	print("🔥 El jugador recibió ", cantidad, " de daño y retrocede.")
 
 	# 1. Aplicar fuerza de retroceso
@@ -147,8 +196,7 @@ func recibir_dano_knockback(cantidad: int, enemy_position: Vector2):
 	velocity.y = -knockback_vertical_boost
 	
 	# 2. Iniciar Timer de aturdimiento
-	# Si el timer ya está corriendo, no lo reiniciamos.
-	if knockback_timer.is_stopped(): # <-- MODIFICADO
+	if knockback_timer.is_stopped():
 		knockback_timer.start()
 
 	# 3. Restar vida (Llama al nivel)
@@ -158,6 +206,5 @@ func recibir_dano_knockback(cantidad: int, enemy_position: Vector2):
 
 func _on_knockback_timer_timeout():
 	is_stunned = false
-	if is_on_floor(): # Solo ponemos velocity.x a 0 si está en el suelo.
+	if is_on_floor():
 		velocity.x = 0
-	# El timer ya es un nodo @onready y se maneja solo.

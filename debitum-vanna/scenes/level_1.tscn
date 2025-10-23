@@ -49570,7 +49570,7 @@ collision_mask = 3
 [node name="Timer" type="Timer" parent="Player"]
 
 [node name="Enemy" type="CharacterBody2D" parent="."]
-position = Vector2(2277, 616)
+position = Vector2(1424, 587)
 collision_layer = 2
 script = ExtResource("4_pa8r4")
 
