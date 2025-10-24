@@ -5,6 +5,7 @@ extends Control
 
 func _ready():
 	# Asegura que al iniciar el juego, el fader esté transparente
+	preload("res://pre-game/pre-game.tscn")
 	color_rect.color = Color(0, 0, 0, 0)
 
 # Esta es la función que llamarás desde tu menú

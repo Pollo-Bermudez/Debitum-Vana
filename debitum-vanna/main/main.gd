@@ -35,9 +35,14 @@ func _ready():
 	timer.start()
 	
 	audio.play()
+	
+	
+
+
 
 # Esta función se llamará CADA VEZ que el timer llegue a 0.4s
 func _on_timer_timeout():
+	preload("res://menu_inicial/menu.tscn")
 	
 	# <--- NUEVO: Si ya estamos en un fade, ignoramos este tick
 	if is_fading:
