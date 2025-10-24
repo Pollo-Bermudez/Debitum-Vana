@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://cnlcfua5os1sf"]
+[gd_scene load_steps=72 format=4 uid="uid://cnlcfua5os1sf"]
 
 [ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
 [ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
@@ -33,6 +33,10 @@
 [ext_resource type="Texture2D" uid="uid://bsr2378wxttwi" path="res://TileMap/dec2(1).png" id="18_v0i6o"]
 [ext_resource type="Texture2D" uid="uid://df0yf75ipy2j5" path="res://TileMap/dec2.png" id="19_bamb7"]
 [ext_resource type="Texture2D" uid="uid://ct7qyfdl4d8p2" path="res://TileMap/dec1 (1).png" id="20_8jqp6"]
+[ext_resource type="Script" uid="uid://b1h1vorkrr3gc" path="res://scenes/coin.gd" id="34_1aans"]
+[ext_resource type="Texture2D" uid="uid://bxk5sl2fdnf6t" path="res://Assets/poker-assets/chips/png/32px/pixel_chips_32px_6.png" id="35_q0ron"]
+[ext_resource type="Script" uid="uid://cal60btfmkny3" path="res://scenes/kit.gd" id="36_tdlki"]
+[ext_resource type="Texture2D" uid="uid://cr5ckroulbkcr" path="res://Assets/Pixel_botiquin1.png" id="37_v8pws"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jscgt"]
 texture = ExtResource("5_hjqri")
@@ -49524,6 +49528,12 @@ size = Vector2(121.5, 158.25)
 [sub_resource type="CircleShape2D" id="CircleShape2D_2os1m"]
 radius = 389.40082
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tdlki"]
+radius = 33.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rscm6"]
+radius = 29.15476
+
 [node name="level1" type="Node2D"]
 script = ExtResource("1_rus8k")
 
@@ -49615,7 +49625,33 @@ shape = SubResource("CircleShape2D_2os1m")
 [node name="Poeta" parent="." instance=ExtResource("12_go7sj")]
 position = Vector2(2881, 613)
 
+[node name="Coin" type="Area2D" parent="."]
+script = ExtResource("34_1aans")
+
+[node name="Sprite2D" type="Sprite2D" parent="Coin"]
+position = Vector2(2333.75, 577.25)
+scale = Vector2(1.7968724, 1.7968743)
+texture = ExtResource("35_q0ron")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin"]
+position = Vector2(2335, 577)
+shape = SubResource("CircleShape2D_tdlki")
+
+[node name="kit" type="Area2D" parent="."]
+script = ExtResource("36_tdlki")
+
+[node name="Sprite2D" type="Sprite2D" parent="kit"]
+position = Vector2(1750.125, 581)
+scale = Vector2(0.16749983, 0.18399996)
+texture = ExtResource("37_v8pws")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kit"]
+position = Vector2(1748, 584)
+shape = SubResource("CircleShape2D_rscm6")
+
 [connection signal="body_entered" from="Enemy/AttackArea" to="Enemy" method="_on_AttackArea_body_entered"]
+[connection signal="body_entered" from="Coin" to="Coin" method="_on_body_entered"]
+[connection signal="body_entered" from="kit" to="kit" method="_on_body_entered"]
 
 [editable path="TileMapLayer4"]
 [editable path="TileMapLayer2"]

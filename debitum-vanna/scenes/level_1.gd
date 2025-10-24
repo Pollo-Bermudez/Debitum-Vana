@@ -59,6 +59,12 @@ func lose_life():
 	
 	#if player_lives <= 0:
 	#	game_over()
+#Función para agregar vidas con el botiquin
+func add_life(amount: int = 1):
+	player_lives += amount
+	lives_label.text = "❤️ Vidas: " + str(player_lives)
+	print("💊 Vida recuperada. Total de vidas:", player_lives)
+
 
 func respawn_player():
 	# USO CORRECTO DE SPAWN_POSITION: Esto solo se usa cuando el jugador cae (check_player_fall).
