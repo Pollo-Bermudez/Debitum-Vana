@@ -11,11 +11,22 @@ var linea_actual = 0
 func _ready():
 	# El diálogo debe empezar oculto
 	caja_dialogo.hide()
+	
+	# Le dice a este nodo (y a sus hijos) que sigan funcionando
+	# incluso si get_tree().paused es 'true'.
+	# Así, _input() seguirá detectando la tecla "interact".
+	# process_mode = PROCESS_MODE_WHEN_PAUSED
 
-func _input(event):
-	# Si la caja es visible y presionamos "interactuar"...
-	if caja_dialogo.visible and Input.is_action_pressed("interact"):
+# /////////////////////////////////////////////////
+# /////NO USAR _process porque se bugea!!!!!!//////
+# /////////////////////////////////////////////////
+
+func _input(_event):
+	# Si la caja es visible...
+	if caja_dialogo.visible and _event.is_action_pressed("interact") and not _event.is_echo():
 		mostrar_siguiente_linea()
+		get_viewport().set_input_as_handled()
+
 
 # Función para que otros (como el NPC) puedan llamarla
 func iniciar(lineas: Array[String]):
@@ -29,7 +40,8 @@ func iniciar(lineas: Array[String]):
 	
 	# Pausamos el juego (al jugador) para que no se mueva mientras lee
 	# get_tree().paused = true 
-	# (Descomenta la línea de arriba si quieres pausar el juego)
+	# NO ACTIVAR PORQUE SE USAN EN LA INTRO Y CINEMATICAS
+
 
 func mostrar_siguiente_linea():
 	linea_actual += 1

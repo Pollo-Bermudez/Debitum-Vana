@@ -39,7 +39,7 @@ func _ready():
 	
 	# Configuración del Timer de Dash
 	dash_timer.wait_time = dash_duration
-	dash_timer.timeout.connect(_on_dash_timer_timeout)
+	# dash_timer.timeout.connect(_on_dash_timer_timeout)
 	
 	# 🛑 Configuración del Timer de Disparo
 	shoot_timer.wait_time = shoot_cooldown
@@ -79,7 +79,6 @@ func _physics_process(delta):
 func update_animations():
 	# --- Animación de Dash ---
 	if is_dashing:
-		animated_sprite.flip_h = true
 		animated_sprite.play("dash")
 		return
 	# -------------------------
