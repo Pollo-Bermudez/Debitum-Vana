@@ -18,6 +18,8 @@ func set_direction(dir: int):
 	direction = dir
 	if $AnimatedSprite2D:
 		$AnimatedSprite2D.flip_h = direction < 0
+		$AnimatedSprite2D.play("fly")
+
 
 func _on_body_entered(body):
 	if body.is_in_group("player"):
