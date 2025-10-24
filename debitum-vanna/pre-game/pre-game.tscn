@@ -2476,6 +2476,9 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_7py7k")
+dialogo = null
+dialogo2 = null
+i = null
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_eqrio")
@@ -2578,7 +2581,7 @@ offset_top = 480.0
 offset_right = 1602.0
 offset_bottom = 580.0
 theme_override_font_sizes/font_size = 28
-text = "Pedir carta"
+text = "Pedir carta E"
 
 [node name="pass" type="Button" parent="."]
 visible = false
@@ -2588,7 +2591,7 @@ offset_top = 480.0
 offset_right = 1290.0
 offset_bottom = 580.0
 theme_override_font_sizes/font_size = 28
-text = "Quedarse (perder)"
+text = "Quedarse (perder) Q"
 
 [connection signal="button_down" from="Continue" to="." method="_on_continue_button_down"]
 [connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]

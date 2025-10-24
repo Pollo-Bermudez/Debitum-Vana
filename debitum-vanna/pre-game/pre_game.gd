@@ -1,10 +1,12 @@
 extends Control
 
+
+
 @export var dialogo: Array[String] = ["Willy: Vaya, parece que solo me quedan 600 dolares", "Willy: Necesito pasar a la casa, si no, voy a perderlo TODO!!", "Willy: Que deberia hacer?"]
 @export var dialogo2: Array[String] = ["Willy: Recorcholis, he perdido tio", "Crupier: Lo siento, señor… la suerte no está de su lado.", "Willy (golpeando la mesa): ¡Otra mano! Apuesto lo que me queda…
 ","Voz misteriosa: Willy, Willy… siempre pensando que puedes engañar a la banca. Nos debes un millón de Blitzcoins. Una semana. Ni un día más.", "Willy: Joder tio tengo que conseguir la pasta", "Willy: Eh???........Que pasa?"]
-@export var i = 0
-var is_active = false
+@export var i: int = 0
+var is_active: bool = false
 
 func _ready():
 	$AudioStreamPlayer2D.play()
@@ -41,7 +43,7 @@ func _input(event):
 	
 	# 3. Si SÍ estamos en la intro, ejecuta la lógica de siempre:
 	
-	if not (event.is_action_pressed("interact") and not event.is_echo()):
+	if not (event.is_action_pressed("interact") and not event.is_echo()) and not (event.is_action_pressed("reject") and not event.is_echo()):
 		return
 		
 	if not DialogosUi.is_dialogo_activo():
@@ -64,9 +66,21 @@ func _on_dialogo_avanzado(index: int):
 		$get.visible = true
 		$pass.visible = true
 	
-	if index == 8:
+	if index == 3:
+		if Input.is_action_just_pressed("interact"):
+			#print('e')
+			_on_get_pressed()
+		if Input.is_action_just_pressed("reject"):
+			#print('q')
+			_on_pass_pressed()
+	
+	if index == 7:
+		preload("res://scenes/level_1.tscn")
+		#pass
+	
+	if index == 9:
 		$Continue.visible = false
-		# DialogosUi.visible = false
+		#DialogosUi.visible = false
 		# Esa puta linea de mierda me costo una hora y media de mi vida, la 
 		# dejo como evidencia de por que luego no duermo
 		is_active = false
@@ -74,8 +88,10 @@ func _on_dialogo_avanzado(index: int):
 
 
 func _on_continue_pressed() -> void:
+	
 	# 1. Hacemos lo que "dialogosui.gd" hace:
-	DialogosUi.mostrar_siguiente_linea()
+	if i != 9:
+		DialogosUi.mostrar_siguiente_linea() 
 	
 	# 2. Hacemos lo que "pregame.gd" (este script) hace en _process:
 	i += 1
@@ -98,7 +114,7 @@ func _on_pass_pressed() -> void:
 	DialogosUi.visible = false
 	$get.visible = false
 	$pass.visible = false
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1).timeout
 	DialogosUi.iniciar(dialogo2)
 	DialogosUi.visible = true
 	# await get_tree().create_timer(1).timeout
