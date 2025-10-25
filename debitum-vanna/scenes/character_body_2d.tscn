@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bhiakd3rkh31t"]
+[gd_scene load_steps=40 format=3 uid="uid://bhiakd3rkh31t"]
 
 [ext_resource type="Script" uid="uid://7uitorxkhwbx" path="res://scenes/character_body_2d.gd" id="1_g2brh"]
 [ext_resource type="Texture2D" uid="uid://dn68ckwnubobu" path="res://sprites/Player/Gemini_Generated_Image_1tz1jf1tz1jf1tz1-removebg-preview.png" id="2_4vejd"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dibllmyh6fyt5" path="res://sprites/Player/Gemini_Generated_Image_7sr9517sr9517sr9 (1) (1).png" id="2_ws0vm"]
 [ext_resource type="Texture2D" uid="uid://mdygtsjh8nve" path="res://sprites/Player/Gemini_Generated_Image_t8f0irt8f0irt8f0-removebg-preview.png" id="3_ws0vm"]
 [ext_resource type="Texture2D" uid="uid://w4n1ssbr0gky" path="res://sprites/Player/Gemini_Generated_Image_f8d55lf8d55lf8d5-removebg-preview.png" id="4_rhr3r"]
+[ext_resource type="Texture2D" uid="uid://cnvm01u4wxwe4" path="res://sprites/Player/Gemini_Generated_Image_2eer3z2eer3z2eer (1) (1).png" id="4_yi2kj"]
 [ext_resource type="Texture2D" uid="uid://ch2d7prlse5pq" path="res://sprites/Player/willy lanzando espejeado.png" id="6_t53lx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rhr3r"]
@@ -23,6 +24,22 @@ region = Rect2(234, 171, 117, 166)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rsbhr"]
 atlas = ExtResource("2_ws0vm")
 region = Rect2(351, 171, 117, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjxx7"]
+atlas = ExtResource("4_yi2kj")
+region = Rect2(0, 111, 83, 111)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_605yl"]
+atlas = ExtResource("4_yi2kj")
+region = Rect2(83, 111, 83, 111)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7f82"]
+atlas = ExtResource("4_yi2kj")
+region = Rect2(166, 111, 83, 111)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y77s4"]
+atlas = ExtResource("4_yi2kj")
+region = Rect2(284, 111, 71, 111)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4vejd"]
 atlas = ExtResource("2_4vejd")
@@ -129,6 +146,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_mjxx7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_605yl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7f82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y77s4")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_4vejd")
 }],
 "loop": true,
@@ -229,8 +263,9 @@ bullet_scene = ExtResource("2_t53lx")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_33wo8")
-animation = &"launch"
-frame_progress = 0.15639253
+animation = &"die"
+frame = 3
+frame_progress = 0.3291945
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -11.5)

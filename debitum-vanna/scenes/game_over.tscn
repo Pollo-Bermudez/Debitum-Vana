@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr8g86huirywg"]
+
+[ext_resource type="Script" uid="uid://ct5lr3ty0ve4b" path="res://scenes/game_over.gd" id="1_xeevv"]
+[ext_resource type="Texture2D" uid="uid://32e24ug5g8nn" path="res://menu_inicial/assets/menu.jpeg" id="2_wqhvx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tbwuq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wqhvx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_xeevv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(792, 448.50003)
+scale = Vector2(1.0403645, 0.8681641)
+sprite_frames = SubResource("SpriteFrames_tbwuq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -794.0
+offset_top = -445.0
+offset_right = 799.0
+offset_bottom = 441.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6, 0.6, 0.6, 0.5882353)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 742.0
+offset_top = 465.0
+offset_right = 844.0
+offset_bottom = 494.0
+text = "GAME OVER"
+
+[node name="ReiniciarNivel" type="Button" parent="."]
+offset_left = 724.0
+offset_top = 540.0
+offset_right = 853.0
+offset_bottom = 571.0
+text = "Reiniciar nivel"
+
+[node name="VolverMenu" type="Button" parent="."]
+offset_left = 717.0
+offset_top = 638.0
+offset_right = 861.0
+offset_bottom = 669.0
+text = "Regresar al menu"
+
+[connection signal="pressed" from="ReiniciarNivel" to="." method="_on_reiniciar_nivel_button_pressed"]
+[connection signal="pressed" from="VolverMenu" to="." method="_on_Volver_Menu_pressed"]

@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var game_over_scene : PackedScene
+
 # Variables del juego
 var player_lives = 3
 var player_coins = 0
@@ -57,8 +59,9 @@ func lose_life():
 	player_lives -= 1
 	lives_label.text = "❤️ Vidas: " + str(player_lives)
 	
-	#if player_lives <= 0:
-	#	game_over()
+	if player_lives <= 0:
+		if player and is_instance_valid(player) and player.has_method("initiate_death"):
+			player.initiate_death()
 #Función para agregar vidas con el botiquin
 func add_life(amount: int = 1):
 	player_lives += amount
@@ -68,14 +71,20 @@ func add_life(amount: int = 1):
 
 func respawn_player():
 	# USO CORRECTO DE SPAWN_POSITION: Esto solo se usa cuando el jugador cae (check_player_fall).
-	if player:
+	if player and is_instance_valid(player):
 		player.global_position = spawn_position # Usa la posición guardada
 		print("☠️ El jugador cayó y regresó al spawn.")
 		
 
-#func game_over():
-#	print("💀 Game Over!")
-#	get_tree().change_scene_to_file("res://Scenes/GameOver.tscn") # o puedes mostrar un menú
+func handle_player_death_cleanup():
+	game_over()
+
+func game_over():
+	print("Game Over! Cargando pantalla de opciones")
+	if game_over_scene:
+		get_tree().change_scene_to_packed(game_over_scene)
+	else:
+		push_warning("La escena no se cargo en el nivel")
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

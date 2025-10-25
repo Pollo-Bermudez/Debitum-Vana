@@ -15,6 +15,10 @@ extends CharacterBody2D
 @export var bullet_scene: PackedScene                    # Escena de la bala
 # ----------------------------
 
+#------ Variable de muerte -----
+@export var death_animation_duration: float = 0.8
+#--------------------------------
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 @onready var camera: Camera2D = $Camera2D
 @onready var dash_timer: Timer = $DashTimer
@@ -207,3 +211,24 @@ func _on_knockback_timer_timeout():
 	is_stunned = false
 	if is_on_floor():
 		velocity.x = 0
+
+func initiate_death():
+	is_stunned = true
+	is_dashing = false
+	velocity = Vector2.ZERO
+	
+	animated_sprite.play("die")
+	
+	var death_timer = Timer.new()
+	add_child(death_timer)
+	death_timer.one_shot=true
+	death_timer.wait_time = death_animation_duration
+	death_timer.timeout.connect(_on_death_animation_finished)
+	death_timer.start()
+
+func _on_death_animation_finished():
+	var nivel = get_tree().get_current_scene()
+	if nivel and nivel.has_method("handle_player_death_cleanup"):
+		nivel.handle_player_death_cleanup()
+	
+	queue_free()
