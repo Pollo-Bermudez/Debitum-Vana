@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj7ix7ohkwyb1"]
+
+[ext_resource type="VideoStream" uid="uid://cd4nem84qoe23" path="res://scenes/flashbababang.ogv" id="1_brydq"]
+[ext_resource type="Script" uid="uid://dhdg602xi7hiq" path="res://scenes/flashback_papa.gd" id="1_d4rvq"]
+
+[node name="FlashbackPapa" type="CanvasLayer"]
+script = ExtResource("1_d4rvq")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+offset_right = 1.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.2684419, 1.2684419)
+stream = ExtResource("1_brydq")

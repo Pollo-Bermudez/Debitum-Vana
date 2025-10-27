@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://f0pjrdjyvjmw"]
+[gd_scene load_steps=10 format=3 uid="uid://f0pjrdjyvjmw"]
 
 [ext_resource type="Script" uid="uid://bgx28vo1xfwpb" path="res://scenes/poeta.gd" id="1_bnp10"]
+[ext_resource type="PackedScene" uid="uid://cj7ix7ohkwyb1" path="res://scenes/flashback papa.tscn" id="2_5aiaj"]
 [ext_resource type="Texture2D" uid="uid://d3hipv5q5jsro" path="res://sprites/Poeta/poeta_idle_0 (1).png" id="2_qvmvp"]
 [ext_resource type="Texture2D" uid="uid://d0bmmytge0for" path="res://sprites/Poeta/poeta_idle_1 (1).png" id="3_5aiaj"]
 [ext_resource type="Texture2D" uid="uid://bjvhtm0emidk1" path="res://sprites/Poeta/poeta_idle_2 (1).png" id="4_g8jsj"]
@@ -37,6 +38,7 @@ radius = 113.004425
 position = Vector2(782, 445)
 collision_layer = 2
 script = ExtResource("1_bnp10")
+escena_video_flashback = ExtResource("2_5aiaj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1.9073486e-06)
