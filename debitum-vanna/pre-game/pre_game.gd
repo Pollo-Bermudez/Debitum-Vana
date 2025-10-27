@@ -78,7 +78,7 @@ func _on_dialogo_avanzado(index: int):
 		preload("res://scenes/level_1.tscn")
 		#pass
 	
-	if index == 9:
+	if index == 8:
 		$Continue.visible = false
 		#DialogosUi.visible = false
 		# Esa puta linea de mierda me costo una hora y media de mi vida, la 
