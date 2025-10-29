@@ -11,7 +11,7 @@ extends CharacterBody2D
 # -------------------------
 
 # --- Variables de Disparo ---
-@export var shoot_cooldown: float = 0.4                  # Tiempo de recarga
+@export var shoot_cooldown: float = 0.1                  # Tiempo de recarga
 @export var bullet_scene: PackedScene                    # Escena de la bala
 # ----------------------------
 

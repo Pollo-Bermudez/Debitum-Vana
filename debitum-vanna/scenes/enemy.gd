@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # --- Variables de Vida ---
-@export var max_health: int = 3 # Vida total del enemigo
+@export var max_health: int = 6 # Vida total del enemigo
 var current_health: int
 
 # --- Variables de Movimiento y Ataque ---
