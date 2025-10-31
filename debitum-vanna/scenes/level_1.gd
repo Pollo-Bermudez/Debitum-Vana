@@ -2,6 +2,8 @@ extends Node2D
 
 @export var game_over_scene : PackedScene
 
+@export var pixel_font : Font
+
 # Variables del juego
 var player_lives = 3
 var player_coins = 0
@@ -43,19 +45,29 @@ func create_instant_hud():
 	lives_label = Label.new()
 	lives_label.position = Vector2(20, 20)
 	lives_label.text = "❤️ Vidas: " + str(player_lives)
-	lives_label.add_theme_font_size_override("font_size", 20)
+	
+	# ⬇️ 2. ASIGNA LA FUENTE Y EL TAMAÑO
+	if pixel_font:
+		lives_label.add_theme_font_override("font", pixel_font)
+	lives_label.add_theme_font_size_override("font_size", 16) # O el tamaño que se vea bien
+	
 	hud.add_child(lives_label)
 	
 	# Monedas
 	coins_label = Label.new()
 	coins_label.position = Vector2(20, 50)
-	coins_label.text = "🪙 Blitzcoins: " + str(player_coins)
-	coins_label.add_theme_font_size_override("font_size", 20)
+	coins_label.text = "🪙 " + str(player_coins)
+	
+	# ⬇️ 3. ASIGNA LA FUENTE Y EL TAMAÑO TAMBIÉN AQUÍ
+	if pixel_font:
+		coins_label.add_theme_font_override("font", pixel_font)
+	coins_label.add_theme_font_size_override("font_size", 20) # Usa el mismo tamaño
+	
 	hud.add_child(coins_label)
 
 func add_coin():
 	player_coins += 1
-	coins_label.text = "🪙 Blitzcoins: " + str(player_coins)
+	coins_label.text = "🪙 " + str(player_coins)
 
 func lose_life():
 	player_lives -= 1

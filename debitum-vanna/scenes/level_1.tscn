@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=4 uid="uid://cnlcfua5os1sf"]
+[gd_scene load_steps=75 format=4 uid="uid://cnlcfua5os1sf"]
 
 [ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
 [ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://3tgvpces7rjf" path="res://scenes/parallax_2d.gd" id="2_tr1x6"]
 [ext_resource type="PackedScene" uid="uid://dr8g86huirywg" path="res://scenes/game_over.tscn" id="2_v8pws"]
 [ext_resource type="Texture2D" uid="uid://7ybgafgqqfbk" path="res://TileMap/Fondo.png" id="3_d5akn"]
+[ext_resource type="FontFile" uid="uid://c4f4ygaf0itf6" path="res://Assets/Text/PressStart2P-Regular.ttf" id="3_v8pws"]
 [ext_resource type="Script" uid="uid://y1u464fd4j2j" path="res://scenes/enemy.gd" id="4_pa8r4"]
 [ext_resource type="PackedScene" uid="uid://bwk2v80s0ac1f" path="res://Importaciones/tile_map_layer_2.res" id="4_tr1x6"]
 [ext_resource type="Texture2D" uid="uid://dntpt47dunqkp" path="res://sprites/Fantasma/Caminata 1.png" id="5_2y5yt"]
@@ -33,9 +34,9 @@
 [ext_resource type="Texture2D" uid="uid://nkkk2ow71jud" path="res://TileMap/set2gotico (1).png" id="16_wa552"]
 [ext_resource type="Texture2D" uid="uid://bsr2378wxttwi" path="res://TileMap/dec2(1).png" id="18_v0i6o"]
 [ext_resource type="Texture2D" uid="uid://cqdg13jk5u3lu" path="res://sprites/Moneda poker.png" id="26_tdlki"]
-[ext_resource type="Script" path="res://scenes/coin.gd" id="34_1aans"]
+[ext_resource type="Script" uid="uid://b1h1vorkrr3gc" path="res://scenes/coin.gd" id="34_1aans"]
 [ext_resource type="Texture2D" uid="uid://bxk5sl2fdnf6t" path="res://Assets/poker-assets/chips/png/32px/pixel_chips_32px_6.png" id="35_q0ron"]
-[ext_resource type="Script" path="res://scenes/kit.gd" id="36_tdlki"]
+[ext_resource type="Script" uid="uid://cal60btfmkny3" path="res://scenes/kit.gd" id="36_tdlki"]
 [ext_resource type="Texture2D" uid="uid://cr5ckroulbkcr" path="res://Assets/Pixel_botiquin1.png" id="37_v8pws"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jscgt"]
@@ -46306,6 +46307,7 @@ radius = 389.40082
 [node name="level1" type="Node2D"]
 script = ExtResource("1_rus8k")
 game_over_scene = ExtResource("2_v8pws")
+pixel_font = ExtResource("3_v8pws")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -46380,8 +46382,7 @@ collision_mask = 3
 position = Vector2(10659, 589)
 
 [node name="Coin" type="Area2D" parent="."]
-position = Vector2(935, 670)
-scale = Vector2(0.8, 0.8)
+position = Vector2(935, 660)
 script = ExtResource("34_1aans")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coin"]
