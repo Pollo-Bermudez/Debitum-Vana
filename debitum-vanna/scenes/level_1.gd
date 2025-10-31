@@ -12,7 +12,9 @@ var death_y_limit = 1200
 var spawn_position: Vector2 = Vector2(0, 0)
 
 func _ready():
+	$Coin/AnimatedSprite2D.play("Girando")
 	create_instant_hud()
+	
 	
 	# Buscar el nodo del jugador en la escena
 	player = get_node_or_null("Player")
