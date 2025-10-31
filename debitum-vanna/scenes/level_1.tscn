@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://cnlcfua5os1sf"]
+[gd_scene load_steps=74 format=4 uid="uid://cnlcfua5os1sf"]
 
 [ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
 [ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://cal4ergarf2k8" path="res://TileMap/setGotico.png" id="14_wom8k"]
 [ext_resource type="Texture2D" uid="uid://nkkk2ow71jud" path="res://TileMap/set2gotico (1).png" id="16_wa552"]
 [ext_resource type="Texture2D" uid="uid://bsr2378wxttwi" path="res://TileMap/dec2(1).png" id="18_v0i6o"]
+[ext_resource type="Texture2D" uid="uid://cqdg13jk5u3lu" path="res://sprites/Moneda poker.png" id="26_tdlki"]
 [ext_resource type="Script" path="res://scenes/coin.gd" id="34_1aans"]
 [ext_resource type="Texture2D" uid="uid://bxk5sl2fdnf6t" path="res://Assets/poker-assets/chips/png/32px/pixel_chips_32px_6.png" id="35_q0ron"]
 [ext_resource type="Script" path="res://scenes/kit.gd" id="36_tdlki"]
@@ -46187,6 +46188,56 @@ sources/0 = SubResource("TileSetAtlasSource_ymcg8")
 [sub_resource type="CircleShape2D" id="CircleShape2D_rscm6"]
 radius = 29.15476
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8pws"]
+atlas = ExtResource("26_tdlki")
+region = Rect2(132, 0, 66, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rscm6"]
+atlas = ExtResource("26_tdlki")
+region = Rect2(66, 0, 66, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wom8k"]
+atlas = ExtResource("26_tdlki")
+region = Rect2(198, 0, 66, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wa552"]
+atlas = ExtResource("26_tdlki")
+region = Rect2(462, 0, 66, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0i6o"]
+atlas = ExtResource("26_tdlki")
+region = Rect2(0, 0, 66, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bamb7"]
+atlas = ExtResource("26_tdlki")
+region = Rect2(528, 0, 66, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8jqp6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8pws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rscm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wom8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wa552")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0i6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bamb7")
+}],
+"loop": true,
+"name": &"Girando",
+"speed": 8.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_v8pws"]
 radius = 29.0
 
@@ -46329,12 +46380,15 @@ collision_mask = 3
 position = Vector2(10659, 589)
 
 [node name="Coin" type="Area2D" parent="."]
-position = Vector2(6909, 621)
+position = Vector2(935, 670)
+scale = Vector2(0.8, 0.8)
 script = ExtResource("34_1aans")
 
-[node name="Sprite2D" type="Sprite2D" parent="Coin"]
-scale = Vector2(1.7968724, 1.7968743)
-texture = ExtResource("35_q0ron")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coin"]
+position = Vector2(3, 0)
+sprite_frames = SubResource("SpriteFrames_8jqp6")
+animation = &"Girando"
+frame_progress = 0.06493404
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin"]
 shape = SubResource("CircleShape2D_v8pws")
@@ -46348,17 +46402,6 @@ scale = Vector2(1.7968724, 1.7968743)
 texture = ExtResource("35_q0ron")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin5"]
-shape = SubResource("CircleShape2D_v8pws")
-
-[node name="Coin5" type="Area2D" parent="Coin5"]
-position = Vector2(5006, -107)
-script = ExtResource("34_1aans")
-
-[node name="Sprite2D" type="Sprite2D" parent="Coin5/Coin5"]
-scale = Vector2(1.7968724, 1.7968743)
-texture = ExtResource("35_q0ron")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin5/Coin5"]
 shape = SubResource("CircleShape2D_v8pws")
 
 [node name="Coin6" type="Area2D" parent="."]
@@ -46381,6 +46424,17 @@ scale = Vector2(1.7968724, 1.7968743)
 texture = ExtResource("35_q0ron")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin6/Coin5"]
+shape = SubResource("CircleShape2D_v8pws")
+
+[node name="Coin8" type="Area2D" parent="."]
+position = Vector2(10012, -214)
+script = ExtResource("34_1aans")
+
+[node name="Sprite2D" type="Sprite2D" parent="Coin8"]
+scale = Vector2(1.7968724, 1.7968743)
+texture = ExtResource("35_q0ron")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin8"]
 shape = SubResource("CircleShape2D_v8pws")
 
 [node name="Coin7" type="Area2D" parent="."]
@@ -47560,9 +47614,9 @@ shape = SubResource("CircleShape2D_2os1m")
 [connection signal="body_entered" from="kit2" to="kit2" method="_on_body_entered"]
 [connection signal="body_entered" from="Coin" to="Coin" method="_on_body_entered"]
 [connection signal="body_entered" from="Coin5" to="Coin5" method="_on_body_entered"]
-[connection signal="body_entered" from="Coin5/Coin5" to="Coin5/Coin5" method="_on_body_entered"]
 [connection signal="body_entered" from="Coin6" to="Coin6" method="_on_body_entered"]
 [connection signal="body_entered" from="Coin6/Coin5" to="Coin6/Coin5" method="_on_body_entered"]
+[connection signal="body_entered" from="Coin8" to="Coin8" method="_on_body_entered"]
 [connection signal="body_entered" from="Coin7" to="Coin7" method="_on_body_entered"]
 [connection signal="body_entered" from="Coin7/Coin5" to="Coin7/Coin5" method="_on_body_entered"]
 [connection signal="body_entered" from="Coin2" to="Coin2" method="_on_body_entered"]
