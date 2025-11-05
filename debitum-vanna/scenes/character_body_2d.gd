@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 @export var move_speed: float = 200.0
 @export var jump_speed: float = 700.0
-@export var knockback_force: float = 800.0
-@export var knockback_vertical_boost: float = 600.0
+@export var knockback_force: float = 700.0
+@export var knockback_vertical_boost: float = 400.0
 
 # --- Variables de Dash ---
 @export var dash_speed: float = 1200.0
@@ -25,7 +25,7 @@ extends CharacterBody2D
 @onready var shoot_timer: Timer = $ShootTimer            # 🛑 NUEVO: Referencia al nodo Timer de Disparo
 
 var is_facing_right = true
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.3
 var is_stunned: bool = false
 var knockback_timer: Timer = null                        # Usado para crear el Timer en _ready
 var can_shoot: bool = true                              # 🛑 NUEVO: Bandera para disparar

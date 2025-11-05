@@ -42,7 +42,8 @@ func on_dialogo_del_poeta_terminado():
 		return
 
 	var video_instancia = escena_video_flashback.instantiate()
-	
+	preload("res://nivel2/scenes/level_2.tscn")
+
 	# Nos conectamos a la señal de que el video FUE BORRADO
 	# para que el poeta pueda volver a hablar.
 	video_instancia.tree_exited.connect(on_video_terminado_y_borrado)
@@ -53,7 +54,8 @@ func on_dialogo_del_poeta_terminado():
 
 # Esta función se llama cuando el video termina Y se borra
 func on_video_terminado_y_borrado():
-	print("DEBUG Poeta: El video terminó. El poeta vuelve a estar disponible.")
+	get_tree().change_scene_to_file("res://nivel2/scenes/level_2.tscn")
+
 	video_iniciado = false
 	# Si solo quieres que el video se vea UNA vez, borra el contenido
 	# de esta función y deja 'video_iniciado' en 'true' para siempre.

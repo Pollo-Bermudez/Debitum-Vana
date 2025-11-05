@@ -37,3 +37,7 @@ func fade_to_scene(scene_path: String, duration: float = 0.5):
 # Esta es tu función del botón "Jugar"
 func _on_button_pressed():
 	fade_to_scene(proxima_escena_path)
+
+
+func _on_button_2_pressed() -> void:
+	get_tree().quit() # Replace with function body.
