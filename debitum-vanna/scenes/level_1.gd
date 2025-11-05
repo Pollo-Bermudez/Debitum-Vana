@@ -16,6 +16,11 @@ var spawn_position: Vector2 = Vector2(0, 0)
 func _ready():
 	$Coin/AnimatedSprite2D.play("Girando")
 	$Coin2/AnimatedSprite2D.play("Girando")
+	$Coin3/AnimatedSprite2D.play("Girando")
+	$Coin4/AnimatedSprite2D.play("Girando")
+	$Coin5/AnimatedSprite2D.play("Girando")
+	$Coin6/AnimatedSprite2D.play("Girando")
+	$Coin7/AnimatedSprite2D.play("Girando")
 	create_instant_hud()
 	
 	
