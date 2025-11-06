@@ -135,11 +135,6 @@ func _on_attack_area_body_entered(body):
 		# Aplicar daño y Knockback al jugador
 		if body.has_method("recibir_dano_knockback"):
 			body.recibir_dano_knockback(dano, self.global_position)
-		
-		# Restar vida del nivel
-		var level = get_tree().get_current_scene()
-		if level.has_method("lose_life"):
-			level.lose_life()
 
 func _on_attack_area_body_exited(body):
 	if body.is_in_group("player"):

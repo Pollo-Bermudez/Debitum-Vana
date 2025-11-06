@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://f0pjrdjyvjmw"]
+[gd_scene load_steps=9 format=3 uid="uid://f0pjrdjyvjmw"]
 
 [ext_resource type="Script" uid="uid://bgx28vo1xfwpb" path="res://scenes/poeta.gd" id="1_bnp10"]
 [ext_resource type="PackedScene" uid="uid://cj7ix7ohkwyb1" path="res://scenes/flashback papa.tscn" id="2_5aiaj"]
@@ -27,10 +27,6 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d1u0h"]
-radius = 34.0
-height = 148.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_k38dq"]
 radius = 113.004425
 
@@ -47,10 +43,6 @@ sprite_frames = SubResource("SpriteFrames_adm10")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.27702665
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 2)
-shape = SubResource("CapsuleShape2D_d1u0h")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(4, 0)

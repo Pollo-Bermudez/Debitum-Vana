@@ -11,24 +11,24 @@ extends CharacterBody2D
 # -------------------------
 
 # --- Variables de Disparo ---
-@export var shoot_cooldown: float = 0.1                  # Tiempo de recarga
-@export var bullet_scene: PackedScene                    # Escena de la bala
+@export var shoot_cooldown: float = 0.1			# Tiempo de recarga
+@export var bullet_scene: PackedScene			# Escena de la bala
 # ----------------------------
 
 #------ Variable de muerte -----
-@export var death_animation_duration: float = 0.8
+@export var death_animation_duration: float = 1.0
 #--------------------------------
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 @onready var camera: Camera2D = $Camera2D
 @onready var dash_timer: Timer = $DashTimer
-@onready var shoot_timer: Timer = $ShootTimer            # 🛑 NUEVO: Referencia al nodo Timer de Disparo
+@onready var shoot_timer: Timer = $ShootTimer		# Referencia al nodo Timer de Disparo
 
 var is_facing_right = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.3
 var is_stunned: bool = false
-var knockback_timer: Timer = null                        # Usado para crear el Timer en _ready
-var can_shoot: bool = true                              # 🛑 NUEVO: Bandera para disparar
+var knockback_timer: Timer = null			# Usado para crear el Timer en _ready
+var can_shoot: bool = true					# Bandera para disparar
 
 # --- Estados de Dash ---
 var is_dashing: bool = false
@@ -45,7 +45,7 @@ func _ready():
 	dash_timer.wait_time = dash_duration
 	# dash_timer.timeout.connect(_on_dash_timer_timeout)
 	
-	# 🛑 Configuración del Timer de Disparo
+	# Configuración del Timer de Disparo
 	shoot_timer.wait_time = shoot_cooldown
 	shoot_timer.one_shot = true
 	shoot_timer.timeout.connect(_on_shoot_timer_timeout)
@@ -58,8 +58,18 @@ func _ready():
 	knockback_timer.timeout.connect(_on_knockback_timer_timeout)
 
 
+# ======================================================================
+# 						PROCESO PRINCIPAL (CORREGIDO)
+# ======================================================================
+
 func _physics_process(delta):
-	jump(delta)
+	
+	# 1. Aplicar gravedad SÓLO si no estamos muertos/aturdidos
+	if not is_stunned:
+		apply_gravity(delta)
+	
+	# 2. Manejar el input de salto (ya está protegido por is_stunned por dentro)
+	handle_jump() # <-- Llama a la nueva función
 	
 	if is_on_floor():
 		has_dashed_in_air = false
@@ -73,22 +83,32 @@ func _physics_process(delta):
 		# En dash, solo aplicamos el movimiento del dash
 		pass
 	elif not is_stunned:
+		# Mover y disparar solo si no estamos aturdidos
 		move_x()
-		handle_shooting() # 🛑 Llamar a la lógica de disparo
+		handle_shooting()
 		
 	flip()
 	update_animations()
 	move_and_slide()
-	
+
+# ======================================================================
+# 						FUNCIONES DE MOVIMIENTO (CORREGIDAS)
+# ======================================================================
+
 func update_animations():
+	# ¡CORRECCIÓN CLAVE!
+	# Si estamos aturdidos (muriendo o por knockback), no anular la animación.
+	if is_stunned: 
+		return
+		
 	# --- Animación de Dash ---
 	if is_dashing:
 		animated_sprite.play("dash")
 		return
 	# -------------------------
 	
-	# 🛑 Animación de Disparo (Launch)
-	if not can_shoot and shoot_timer.time_left > 0.0: # Muestra launch mientras el cooldown está activo
+	# Animación de Disparo (Launch)
+	if not can_shoot and shoot_timer.time_left > 0.0:
 		animated_sprite.play("launch")
 		return
 		
@@ -104,13 +124,19 @@ func update_animations():
 	else:
 		animated_sprite.play("idle")
 
-func jump(delta):
+# --- ¡NUEVA FUNCIÓN! ---
+func apply_gravity(delta):
+	# Esta es la lógica que borramos de la vieja función jump()
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
+# --- ¡FUNCIÓN MODIFICADA! ---
+func handle_jump(): # Ya no necesita 'delta'
 	# Prevenir salto durante el dash y aturdimiento
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_stunned and not is_dashing:
 		velocity.y = -jump_speed
 		
-	if not is_on_floor():
-		velocity.y += gravity * delta
+	# La lógica de gravedad se movió a apply_gravity(delta)
 
 func flip():
 	# Prevenir flip durante el dash
@@ -147,7 +173,7 @@ func _on_dash_timer_timeout():
 	velocity.x = 0
 
 # ----------------------------------------------------------------------
-# 🛑 FUNCIONES DE DISPARO
+# FUNCIONES DE DISPARO
 # ----------------------------------------------------------------------
 
 func handle_shooting():
@@ -159,22 +185,18 @@ func shoot():
 		push_warning("Bullet scene no está asignada.")
 		return
 		
-	# 1. Iniciar Cooldown
 	can_shoot = false
 	shoot_timer.start()
 	
-	# 2. Instanciar la bala
 	var bullet = bullet_scene.instantiate()
 	get_parent().add_child(bullet)
 
-	# 3. Posicionar la bala
-	var shoot_offset = Vector2(20, -10) # Ajusta este offset
+	var shoot_offset = Vector2(20, -10)
 	if not is_facing_right:
 		shoot_offset.x *= -1
 
 	bullet.global_position = global_position + shoot_offset
 
-	# 4. Darle velocidad
 	var direction = 1 if is_facing_right else -1
 	if bullet.has_method("set_direction"):
 		bullet.set_direction(direction)
@@ -182,51 +204,68 @@ func shoot():
 func _on_shoot_timer_timeout():
 	can_shoot = true
 
-# ----------------------------------------------------------------------
-# FUNCIONES DE DAÑO Y KNOCKBACK
-# ----------------------------------------------------------------------
+# ======================================================================
+# 				FUNCIONES DE DAÑO Y MUERTE (CORREGIDAS)
+# ======================================================================
 
 func recibir_dano_knockback(cantidad: int, enemy_position: Vector2):
-	# Prevenir knockback si estás haciendo dash (comportamiento común de invencibilidad)
-	if is_dashing: return 
+	# 1. Si estamos en dash O YA ESTAMOS ATURDIDOS/MURIENDO, no recibir más daño.
+	if is_dashing or is_stunned: return
 	
-	print("🔥 El jugador recibió ", cantidad, " de daño y retrocede.")
+	# 2. Restar la vida (llamar al nivel)
+	var nivel = get_tree().get_current_scene()
+	if nivel and nivel.has_method("lose_life"):
+		nivel.lose_life()
 
-	# 1. Aplicar fuerza de retroceso
+	# 3. COMPROBAR SI MORIMOS
+	# 'lose_life()' habrá llamado a 'initiate_death()', 
+	# y 'initiate_death()' ya habrá puesto 'is_stunned = true'.
+	if is_stunned:
+		# Si morimos, 'initiate_death()' ya se encargó de todo.
+		# Salimos de aquí para NO aplicar el knockback.
+		return
+	
+	# 4. SI LLEGAMOS AQUÍ, NO MORIMOS. Aplicamos knockback.
+	print("🔥 El jugador recibió ", cantidad, " de daño y retrocede.")
 	is_stunned = true
 	var push_direction = sign(global_position.x - enemy_position.x)
 	velocity.x = push_direction * knockback_force
 	velocity.y = -knockback_vertical_boost
 	
-	# 2. Iniciar Timer de aturdimiento
+	# 5. Iniciar Timer de aturdimiento
 	if knockback_timer.is_stopped():
 		knockback_timer.start()
 
-	# 3. Restar vida (Llama al nivel)
-	var nivel = get_tree().get_current_scene()
-	if nivel and nivel.has_method("lose_life"):
-		nivel.lose_life()
 
 func _on_knockback_timer_timeout():
 	is_stunned = false
 	if is_on_floor():
 		velocity.x = 0
 
+# --- ¡FUNCIÓN CLAVE! (Tu versión ya estaba correcta) ---
 func initiate_death():
+	# Este 'if' es VITAL para evitar llamadas dobles
+	if is_stunned:
+		return
+		
 	is_stunned = true
 	is_dashing = false
-	velocity = Vector2.ZERO
+	velocity = Vector2.ZERO # ¡Importante! Detiene todo movimiento
 	
+	print("--- INICIANDO MUERTE ---")
 	animated_sprite.play("die")
 	
 	var death_timer = Timer.new()
 	add_child(death_timer)
 	death_timer.one_shot=true
+	
+	print("El tiempo de espera es: " + str(death_animation_duration))
 	death_timer.wait_time = death_animation_duration
 	death_timer.timeout.connect(_on_death_animation_finished)
 	death_timer.start()
 
 func _on_death_animation_finished():
+	print("--- TIMER DE MUERTE TERMINADO ---")
 	var nivel = get_tree().get_current_scene()
 	if nivel and nivel.has_method("handle_player_death_cleanup"):
 		nivel.handle_player_death_cleanup()
