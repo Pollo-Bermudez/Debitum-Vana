@@ -34,8 +34,8 @@
 [ext_resource type="Texture2D" uid="uid://nkkk2ow71jud" path="res://TileMap/set2gotico (1).png" id="16_wa552"]
 [ext_resource type="Texture2D" uid="uid://bsr2378wxttwi" path="res://TileMap/dec2(1).png" id="18_v0i6o"]
 [ext_resource type="Texture2D" uid="uid://cqdg13jk5u3lu" path="res://sprites/Moneda poker.png" id="26_tdlki"]
-[ext_resource type="Script" uid="uid://b1h1vorkrr3gc" path="res://scenes/coin.gd" id="34_1aans"]
-[ext_resource type="Script" uid="uid://cal60btfmkny3" path="res://scenes/kit.gd" id="36_tdlki"]
+[ext_resource type="Script" path="res://scenes/coin.gd" id="34_1aans"]
+[ext_resource type="Script" path="res://scenes/kit.gd" id="36_tdlki"]
 [ext_resource type="Texture2D" uid="uid://cr5ckroulbkcr" path="res://Assets/Pixel_botiquin1.png" id="37_v8pws"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jscgt"]
@@ -47597,6 +47597,45 @@ text = "     Poeta
 
 Interactuar: E"
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 1464.0
+offset_top = 11.0
+offset_right = 1589.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("3_v8pws")
+theme_override_font_sizes/font_size = 22
+text = "Menú"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+offset_right = 1600.0
+offset_bottom = 900.0
+color = Color(1, 1, 1, 0.15294118)
+
+[node name="Button3" type="Button" parent="CanvasLayer2"]
+offset_left = 711.0
+offset_top = 389.0
+offset_right = 895.0
+offset_bottom = 441.0
+theme_override_fonts/font = ExtResource("3_v8pws")
+theme_override_font_sizes/font_size = 22
+text = "Reanudar"
+
+[node name="Button2" type="Button" parent="CanvasLayer2"]
+offset_left = 662.0
+offset_top = 503.0
+offset_right = 956.0
+offset_bottom = 555.0
+theme_override_fonts/font = ExtResource("3_v8pws")
+theme_override_font_sizes/font_size = 22
+text = "Salir al menú"
+
 [connection signal="body_entered" from="kit" to="kit" method="_on_body_entered"]
 [connection signal="body_entered" from="kit2" to="kit2" method="_on_body_entered"]
 [connection signal="body_entered" from="kit3" to="kit3" method="_on_body_entered"]
@@ -47629,6 +47668,9 @@ Interactuar: E"
 [connection signal="body_entered" from="Enemy4/AttackArea" to="Enemy4" method="_on_AttackArea_body_entered"]
 [connection signal="body_entered" from="Enemy3/AttackArea" to="Enemy3" method="_on_AttackArea_body_entered"]
 [connection signal="body_entered" from="Enemy2/AttackArea" to="Enemy2" method="_on_AttackArea_body_entered"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer2/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="CanvasLayer2/Button2" to="." method="_on_button_2_pressed"]
 
 [editable path="TileMapLayer4"]
 [editable path="TileMapLayer2"]
