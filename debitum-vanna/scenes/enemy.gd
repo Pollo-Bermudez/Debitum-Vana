@@ -55,45 +55,58 @@ func _ready():
 		vision_area.body_exited.connect(_on_vision_area_body_exited)
 
 func _physics_process(delta):
-	# 1. BÚSQUEDA DEL JUGADOR
 	if jugador == null:
 		jugador = get_tree().get_first_node_in_group("player")
-		
-	# 2. GRAVEDAD
+	
 	if not is_on_floor():
 		velocity.y += gravedad * delta
 	
 	velocity.x = 0
-		
-	# 3. LÓGICA DE COMPORTAMIENTO
+	
+	# --- ESTADOS ---
+	
+	# 1. Si está atacando → no se mueve y reproduce punch
 	if atacando:
-		# Se queda quieto durante el Timer de Animación de golpe
 		velocity.x = 0
 		sprite.play("punch")
+	
+	# 2. Si ve al jugador → perseguir usando animación "attack"
 	elif jugador_en_vision and jugador != null:
-		# PERSEGUIR
-		var dir = sign(jugador.global_position.x - global_position.x)
-		var distancia = global_position.distance_to(jugador.global_position)
-		
-		if distancia <= 80:
-			velocity.x = dir * velocidad_ataque
-		else:
-			velocity.x = dir * velocidad
-		
-		sprite.flip_h = dir < 0
-		sprite.play("attack")
+		perseguir()
+	
+	# 3. Si no ve al jugador → patrullar usando "walk"
 	else:
-		# PATRULLAR
 		patrullar()
 	
-	# 4. APLICAR MOVIMIENTO
 	move_and_slide()
 
+
+func perseguir():
+	var dir = sign(jugador.global_position.x - global_position.x)
+	var distancia = global_position.distance_to(jugador.global_position)
+	
+	sprite.flip_h = dir < 0
+	
+	# Si está cerca, usar velocidad_ataque (corre rápido)
+	if distancia <= 80:
+		velocity.x = dir * velocidad_ataque
+	else:
+		velocity.x = dir * velocidad
+	
+	# Animación para PERSEGUIR
+	sprite.play("attack")
+
+
 func patrullar():
-	if not atacando:
-		velocity.x = direccion * velocidad
-		sprite.play("walk")
-		sprite.flip_h = direccion < 0
+	if atacando:
+		return
+	
+	velocity.x = direccion * velocidad
+	
+	# Animación para PATRULLAR
+	sprite.play("walk")
+	sprite.flip_h = direccion < 0
+
 
 # ========== FUNCIONES DE VIDA Y MUERTE ==========
 
