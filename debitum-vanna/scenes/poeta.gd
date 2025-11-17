@@ -34,6 +34,7 @@ func _input(event):
 
 # Esta función se llama cuando 'DialogosUi' emite la señal
 func on_dialogo_del_poeta_terminado():
+	$"../AudioStreamPlayer".stop()
 	print("El diálogo del Poeta terminó. Lanzando video...")
 	
 	if not escena_video_flashback:

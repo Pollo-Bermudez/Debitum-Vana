@@ -119,6 +119,7 @@ func update_animations():
 	# --- Animación de Dash ---
 	if is_dashing:
 		animated_sprite.play("dash")
+		$dah.play()
 		return
 	# -------------------------
 	
@@ -150,7 +151,7 @@ func handle_jump(): # Ya no necesita 'delta'
 	# Prevenir salto durante el dash y aturdimiento
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_stunned and not is_dashing:
 		velocity.y = -jump_speed
-		
+		$jumping.play()
 	# La lógica de gravedad se movió a apply_gravity(delta)
 
 func flip():

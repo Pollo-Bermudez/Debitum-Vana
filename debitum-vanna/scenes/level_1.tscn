@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://cnlcfua5os1sf"]
+[gd_scene load_steps=76 format=4 uid="uid://cnlcfua5os1sf"]
 
 [ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
 [ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
@@ -33,10 +33,14 @@
 [ext_resource type="Texture2D" uid="uid://cal4ergarf2k8" path="res://TileMap/setGotico.png" id="14_wom8k"]
 [ext_resource type="Texture2D" uid="uid://nkkk2ow71jud" path="res://TileMap/set2gotico (1).png" id="16_wa552"]
 [ext_resource type="Texture2D" uid="uid://bsr2378wxttwi" path="res://TileMap/dec2(1).png" id="18_v0i6o"]
+[ext_resource type="AudioStream" uid="uid://dgsu0knbcfp76" path="res://audio_Lv1/player_audios/jumping.mp3" id="24_rscm6"]
+[ext_resource type="AudioStream" uid="uid://d7mm6v5c5bc1" path="res://audio_Lv1/player_audios/dashing.mp3" id="25_wa552"]
 [ext_resource type="Texture2D" uid="uid://cqdg13jk5u3lu" path="res://sprites/Moneda poker.png" id="26_tdlki"]
-[ext_resource type="Script" uid="uid://b1h1vorkrr3gc" path="res://scenes/coin.gd" id="34_1aans"]
-[ext_resource type="Script" uid="uid://cal60btfmkny3" path="res://scenes/kit.gd" id="36_tdlki"]
+[ext_resource type="AudioStream" uid="uid://bck3mih487db2" path="res://audio_Lv1/player_audios/jumplanding-398256.mp3" id="26_v0i6o"]
+[ext_resource type="Script" path="res://scenes/coin.gd" id="34_1aans"]
+[ext_resource type="Script" path="res://scenes/kit.gd" id="36_tdlki"]
 [ext_resource type="Texture2D" uid="uid://cr5ckroulbkcr" path="res://Assets/Pixel_botiquin1.png" id="37_v8pws"]
+[ext_resource type="AudioStream" uid="uid://c0ew4rmtni13k" path="res://audio_Lv1/avismo.mp3" id="38_v8pws"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jscgt"]
 texture = ExtResource("5_hjqri")
@@ -46353,6 +46357,16 @@ collision_mask = 3
 
 [node name="Timer" type="Timer" parent="Player"]
 
+[node name="jumping" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("24_rscm6")
+volume_db = 1.909
+
+[node name="dah" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("25_wa552")
+
+[node name="fall" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("26_v0i6o")
+
 [node name="kit" type="Area2D" parent="."]
 z_index = 1
 position = Vector2(1725, 311)
@@ -47633,6 +47647,11 @@ offset_bottom = 555.0
 theme_override_fonts/font = ExtResource("3_v8pws")
 theme_override_font_sizes/font_size = 22
 text = "Salir al menú"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("38_v8pws")
+volume_db = -11.449
+autoplay = true
 
 [connection signal="body_entered" from="kit" to="kit" method="_on_body_entered"]
 [connection signal="body_entered" from="kit2" to="kit2" method="_on_body_entered"]
