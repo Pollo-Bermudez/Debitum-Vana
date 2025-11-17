@@ -29,6 +29,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 1.3
 var is_stunned: bool = false
 var knockback_timer: Timer = null			# Usado para crear el Timer en _ready
 var can_shoot: bool = true					# Bandera para disparar
+var is_dead: bool = false 
 
 # --- Estados de Dash ---
 var is_dashing: bool = false
@@ -62,7 +63,21 @@ func _ready():
 # 						PROCESO PRINCIPAL (CORREGIDO)
 # ======================================================================
 
-func _physics_process(delta):
+func _physics_process(delta):	
+	# --- ¡LÓGICA DE MUERTE! ---
+	if is_dead:
+		# Si estamos muertos, lo único que hacemos es caer.
+		apply_gravity(delta)
+		# Revisamos si hemos tocado el suelo:
+		if is_on_floor():
+			# Si tocamos el suelo Y la animación "die" NO se está
+			# reproduciendo ya, la iniciamos.
+			if animated_sprite.animation != "die":
+				start_death_animation_on_ground()
+		
+		# Aplicamos la física (para caer) y no hacemos nada más
+		move_and_slide()
+		return # <-- Detiene el resto de la función
 	
 	# 1. Aplicar gravedad SÓLO si no estamos muertos/aturdidos
 	if not is_stunned:
@@ -244,25 +259,33 @@ func _on_knockback_timer_timeout():
 
 # --- ¡FUNCIÓN CLAVE! (Tu versión ya estaba correcta) ---
 func initiate_death():
-	# Este 'if' es VITAL para evitar llamadas dobles
-	if is_stunned:
+	# Revisamos 'is_dead' para evitar llamadas dobles
+	if is_dead:
 		return
 		
-	is_stunned = true
+	is_dead = true
+	is_stunned = true # 'is_stunned' es perfecto para detener el input
 	is_dashing = false
-	velocity = Vector2.ZERO # ¡Importante! Detiene todo movimiento
 	
-	print("--- INICIANDO MUERTE ---")
-	animated_sprite.play("die")
+	print("--- MUERTE REGISTRADA, ESPERANDO SUELO ---")
+
+
+func start_death_animation_on_ground():
+	print("--- TOCANDO SUELO, INICIANDO ANIMACIÓN DE MUERTE ---")
 	
+	velocity = Vector2.ZERO # ¡Detenemos el movimiento!
+	animated_sprite.play("die") # ¡Reproducimos la animación!
 	var death_timer = Timer.new()
 	add_child(death_timer)
-	death_timer.one_shot=true
+	death_timer.one_shot = true
 	
 	print("El tiempo de espera es: " + str(death_animation_duration))
 	death_timer.wait_time = death_animation_duration
+	
+	# Le decimos al timer que llame a la función CUANDO TERMINE
 	death_timer.timeout.connect(_on_death_animation_finished)
 	death_timer.start()
+
 
 func _on_death_animation_finished():
 	print("--- TIMER DE MUERTE TERMINADO ---")
