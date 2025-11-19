@@ -1,0 +1,124 @@
+[gd_scene load_steps=16 format=3 uid="uid://dn72hosdf08p3"]
+
+[ext_resource type="Script" uid="uid://y1u464fd4j2j" path="res://scenes/enemy.gd" id="1_w8i8w"]
+[ext_resource type="Texture2D" uid="uid://dn410halpouad" path="res://sprites/Fantasma/Caminata 2.png" id="2_otmr2"]
+[ext_resource type="Texture2D" uid="uid://cnesrcj8xnp3x" path="res://sprites/Fantasma/Gemini_Generated_Image_w5cro5w5cro5w5cr(1).png" id="3_wtq4b"]
+[ext_resource type="Texture2D" uid="uid://cef3eru6n7gqd" path="res://sprites/Fantasma/Gemini_Generated_Image_w5cro5w5cro5w5cr.png" id="4_j0cyh"]
+[ext_resource type="Texture2D" uid="uid://dhexdtaijjb2r" path="res://sprites/Fantasma/Idle 1.png" id="5_g0wcc"]
+[ext_resource type="Texture2D" uid="uid://bx8brfb4wo0s0" path="res://sprites/Fantasma/golpe 1.png" id="6_s1ycm"]
+[ext_resource type="Texture2D" uid="uid://ccrlmq1bildek" path="res://sprites/Fantasma/golpe 2.png" id="7_shcg2"]
+[ext_resource type="Texture2D" uid="uid://4awjbitsxmuy" path="res://sprites/Fantasma/Gemini_Generated_Image_lhbxjelhbxjelhbx.png" id="8_ile5s"]
+[ext_resource type="Texture2D" uid="uid://dntpt47dunqkp" path="res://sprites/Fantasma/Caminata 1.png" id="9_1x4g4"]
+[ext_resource type="Texture2D" uid="uid://dytrg14lly482" path="res://sprites/Fantasma/Caminata 3.png" id="10_2pwtc"]
+[ext_resource type="AudioStream" uid="uid://c15iqddiylljn" path="res://scenes/creepy-ghosthit.mp3" id="11_rogs8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rus8k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_otmr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wtq4b")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_j0cyh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_g0wcc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_s1ycm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_shcg2")
+}],
+"loop": true,
+"name": &"punch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ile5s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1x4g4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_otmr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_2pwtc")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tdlki"]
+radius = 37.0
+height = 128.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_15mv3"]
+size = Vector2(132, 158.25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2os1m"]
+radius = 389.40082
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_w8i8w")
+
+[node name="PatrolTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-9.2982025, -12.444063)
+scale = Vector2(0.13620684, 0.1495233)
+sprite_frames = SubResource("SpriteFrames_rus8k")
+animation = &"punch"
+frame = 1
+frame_progress = 0.022633055
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-23, 2)
+shape = SubResource("CapsuleShape2D_tdlki")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
+[node name="AttackArea" type="Area2D" parent="." groups=["player"]]
+position = Vector2(21, -8)
+collision_layer = 2
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(-32, -0.125)
+shape = SubResource("RectangleShape2D_15mv3")
+
+[node name="VisionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+position = Vector2(4, -2)
+shape = SubResource("CircleShape2D_2os1m")
+
+[node name="PunchTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_rogs8")
+volume_db = -25.762
+pitch_scale = 1.44
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]

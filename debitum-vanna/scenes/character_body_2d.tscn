@@ -260,8 +260,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lj8jo"]
-size = Vector2(65, 133)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yi2kj"]
+radius = 31.5
+height = 127.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_g2brh")
@@ -270,13 +271,11 @@ bullet_scene = ExtResource("2_t53lx")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_33wo8")
-animation = &"die"
-frame = 3
-frame_progress = 0.31067196
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -11.5)
-shape = SubResource("RectangleShape2D_lj8jo")
+position = Vector2(0, -6)
+shape = SubResource("CapsuleShape2D_yi2kj")
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
