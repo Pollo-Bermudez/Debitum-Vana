@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ct15nytjxi4xl"]
+[gd_scene load_steps=9 format=3 uid="uid://ct15nytjxi4xl"]
 
 [ext_resource type="Script" uid="uid://d2xhyrrqt7fh" path="res://bullet.gd" id="1_y25gk"]
 [ext_resource type="Texture2D" uid="uid://cyui785to17gi" path="res://sprites/Cartas/Gemini_Generated_Image_j53lc2j53lc2j53l (1) (1).png" id="2_l5glv"]
+[ext_resource type="AudioStream" uid="uid://bmxtnhn3i8tgp" path="res://scenes/lanzar_cartas.mp3" id="3_l5glv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qja"]
 size = Vector2(24, 25)
@@ -53,5 +54,8 @@ speed_scale = 3.0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1, -3)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_l5glv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

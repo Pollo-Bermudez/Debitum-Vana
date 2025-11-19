@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://cnlcfua5os1sf"]
+[gd_scene load_steps=79 format=4 uid="uid://cnlcfua5os1sf"]
 
 [ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
 [ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
@@ -37,10 +37,13 @@
 [ext_resource type="AudioStream" uid="uid://d7mm6v5c5bc1" path="res://audio_Lv1/player_audios/dashing.mp3" id="25_wa552"]
 [ext_resource type="Texture2D" uid="uid://cqdg13jk5u3lu" path="res://sprites/Moneda poker.png" id="26_tdlki"]
 [ext_resource type="AudioStream" uid="uid://bck3mih487db2" path="res://audio_Lv1/player_audios/jumplanding-398256.mp3" id="26_v0i6o"]
-[ext_resource type="Script" path="res://scenes/coin.gd" id="34_1aans"]
-[ext_resource type="Script" path="res://scenes/kit.gd" id="36_tdlki"]
+[ext_resource type="AudioStream" uid="uid://bctfq4hfk2j4i" path="res://scenes/healing.mp3" id="29_8jqp6"]
+[ext_resource type="AudioStream" uid="uid://c6gxq58px11p4" path="res://scenes/get-coin.mp3" id="31_bamb7"]
+[ext_resource type="Script" uid="uid://b1h1vorkrr3gc" path="res://scenes/coin.gd" id="34_1aans"]
+[ext_resource type="Script" uid="uid://cal60btfmkny3" path="res://scenes/kit.gd" id="36_tdlki"]
 [ext_resource type="Texture2D" uid="uid://cr5ckroulbkcr" path="res://Assets/Pixel_botiquin1.png" id="37_v8pws"]
 [ext_resource type="AudioStream" uid="uid://c0ew4rmtni13k" path="res://audio_Lv1/avismo.mp3" id="38_v8pws"]
+[ext_resource type="AudioStream" uid="uid://c15iqddiylljn" path="res://scenes/creepy-ghosthit.mp3" id="41_v0i6o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jscgt"]
 texture = ExtResource("5_hjqri")
@@ -46363,6 +46366,7 @@ volume_db = 1.909
 
 [node name="dah" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("25_wa552")
+volume_db = -9.711
 
 [node name="fall" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("26_v0i6o")
@@ -46380,6 +46384,9 @@ texture = ExtResource("37_v8pws")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kit"]
 shape = SubResource("CircleShape2D_rscm6")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="kit"]
+stream = ExtResource("29_8jqp6")
+
 [node name="kit2" type="Area2D" parent="."]
 z_index = 1
 position = Vector2(4268, 310)
@@ -46392,6 +46399,9 @@ texture = ExtResource("37_v8pws")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kit2"]
 shape = SubResource("CircleShape2D_rscm6")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="kit2"]
+stream = ExtResource("29_8jqp6")
 
 [node name="kit3" type="Area2D" parent="."]
 z_index = 1
@@ -46406,6 +46416,9 @@ texture = ExtResource("37_v8pws")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kit3"]
 shape = SubResource("CircleShape2D_rscm6")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="kit3"]
+stream = ExtResource("29_8jqp6")
+
 [node name="Coin" type="Area2D" parent="."]
 position = Vector2(935, 630)
 script = ExtResource("34_1aans")
@@ -46418,6 +46431,9 @@ frame_progress = 0.06493404
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin"]
 shape = SubResource("CircleShape2D_v8pws")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Coin"]
+stream = ExtResource("31_bamb7")
 
 [node name="Coin2" type="Area2D" parent="."]
 position = Vector2(1419, 628)
@@ -46432,6 +46448,9 @@ frame_progress = 0.06493404
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin2"]
 shape = SubResource("CircleShape2D_v8pws")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Coin2"]
+stream = ExtResource("31_bamb7")
+
 [node name="Coin3" type="Area2D" parent="."]
 position = Vector2(5085, -103)
 script = ExtResource("34_1aans")
@@ -46444,6 +46463,9 @@ frame_progress = 0.06493404
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin3"]
 shape = SubResource("CircleShape2D_v8pws")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Coin3"]
+stream = ExtResource("31_bamb7")
 
 [node name="Coin4" type="Area2D" parent="."]
 position = Vector2(5474, 89)
@@ -46458,6 +46480,9 @@ frame_progress = 0.06493404
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin4"]
 shape = SubResource("CircleShape2D_v8pws")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Coin4"]
+stream = ExtResource("31_bamb7")
+
 [node name="Coin5" type="Area2D" parent="."]
 position = Vector2(6069, 595)
 script = ExtResource("34_1aans")
@@ -46470,6 +46495,9 @@ frame_progress = 0.06493404
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin5"]
 shape = SubResource("CircleShape2D_v8pws")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Coin5"]
+stream = ExtResource("31_bamb7")
 
 [node name="Coin6" type="Area2D" parent="."]
 position = Vector2(8487, 155)
@@ -46484,6 +46512,9 @@ frame_progress = 0.06493404
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin6"]
 shape = SubResource("CircleShape2D_v8pws")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Coin6"]
+stream = ExtResource("31_bamb7")
+
 [node name="Coin7" type="Area2D" parent="."]
 position = Vector2(10375, 310)
 script = ExtResource("34_1aans")
@@ -46496,6 +46527,9 @@ frame_progress = 0.06493404
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin7"]
 shape = SubResource("CircleShape2D_v8pws")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Coin7"]
+stream = ExtResource("31_bamb7")
 
 [node name="Enemy" type="CharacterBody2D" parent="."]
 position = Vector2(1450, 638)
@@ -46540,6 +46574,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.762
+pitch_scale = 1.44
+
 [node name="Enemy9" type="CharacterBody2D" parent="."]
 position = Vector2(4729, 600)
 collision_layer = 2
@@ -46582,6 +46621,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy9"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy9"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Enemy10" type="CharacterBody2D" parent="."]
 position = Vector2(5063, -136)
@@ -46626,6 +46670,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy10"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy10"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy11" type="CharacterBody2D" parent="."]
 position = Vector2(4889, 600)
 collision_layer = 2
@@ -46668,6 +46717,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy11"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy11"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Enemy12" type="CharacterBody2D" parent="."]
 position = Vector2(5046, 600)
@@ -46712,6 +46766,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy12"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy12"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy13" type="CharacterBody2D" parent="."]
 position = Vector2(5209, 586)
 collision_layer = 2
@@ -46755,6 +46814,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy13"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy13"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy14" type="CharacterBody2D" parent="."]
 position = Vector2(5372, 589)
 collision_layer = 2
@@ -46795,6 +46859,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy14"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy14"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Enemy15" type="CharacterBody2D" parent="."]
 position = Vector2(5549, 595)
@@ -46839,6 +46908,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy15"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy15"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy16" type="CharacterBody2D" parent="."]
 position = Vector2(5695, 595)
 collision_layer = 2
@@ -46881,6 +46955,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy16"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy16"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Enemy17" type="CharacterBody2D" parent="."]
 position = Vector2(5834, 592)
@@ -46925,6 +47004,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy17"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy17"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy18" type="CharacterBody2D" parent="."]
 position = Vector2(5971, 603)
 collision_layer = 2
@@ -46967,6 +47051,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy18"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy18"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Enemy8" type="CharacterBody2D" parent="."]
 position = Vector2(4093, 597)
@@ -47011,6 +47100,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy8"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy8"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy19" type="CharacterBody2D" parent="."]
 position = Vector2(6151, 604)
 collision_layer = 2
@@ -47053,6 +47147,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy19"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy19"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Enemy20" type="CharacterBody2D" parent="."]
 position = Vector2(7361, 587)
@@ -47097,6 +47196,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy20"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy20"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy21" type="CharacterBody2D" parent="."]
 position = Vector2(7986, 587)
 collision_layer = 2
@@ -47139,6 +47243,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy21"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy21"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Enemy22" type="CharacterBody2D" parent="."]
 position = Vector2(8925, 573)
@@ -47183,6 +47292,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy22"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy22"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy7" type="CharacterBody2D" parent="."]
 position = Vector2(4595, 591)
 collision_layer = 2
@@ -47225,6 +47339,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy7"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy7"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Enemy6" type="CharacterBody2D" parent="."]
 position = Vector2(4436, 594)
@@ -47269,6 +47388,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy6"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy6"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy5" type="CharacterBody2D" parent="."]
 position = Vector2(4227, 597)
 collision_layer = 2
@@ -47311,6 +47435,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy5"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy5"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Enemy4" type="CharacterBody2D" parent="."]
 position = Vector2(3944, 584)
@@ -47355,6 +47484,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy4"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy4"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy3" type="CharacterBody2D" parent="."]
 position = Vector2(3630, 620)
 collision_layer = 2
@@ -47398,6 +47532,11 @@ shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy3"]
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy3"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
+
 [node name="Enemy2" type="CharacterBody2D" parent="."]
 position = Vector2(2990, 610)
 collision_layer = 2
@@ -47440,6 +47579,11 @@ position = Vector2(4, -2)
 shape = SubResource("CircleShape2D_2os1m")
 
 [node name="PunchTimer" type="Timer" parent="Enemy2"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Enemy2"]
+stream = ExtResource("41_v0i6o")
+volume_db = -25.0
+pitch_scale = 1.44
 
 [node name="Label" type="Label" parent="."]
 z_index = -1
@@ -47654,11 +47798,17 @@ volume_db = -11.449
 autoplay = true
 
 [connection signal="body_entered" from="kit" to="kit" method="_on_body_entered"]
+[connection signal="finished" from="kit/AudioStreamPlayer2D" to="kit" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="kit2" to="kit2" method="_on_body_entered"]
+[connection signal="finished" from="kit2/AudioStreamPlayer2D" to="kit2" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="kit3" to="kit3" method="_on_body_entered"]
+[connection signal="finished" from="kit3/AudioStreamPlayer2D" to="kit3" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="Coin" to="Coin" method="_on_body_entered"]
+[connection signal="finished" from="Coin/AudioStreamPlayer2D" to="Coin" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="Coin2" to="Coin2" method="_on_body_entered"]
+[connection signal="finished" from="Coin2/AudioStreamPlayer2D" to="Coin2" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="Coin3" to="Coin3" method="_on_body_entered"]
+[connection signal="finished" from="Coin3/AudioStreamPlayer2D" to="Coin3" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="Coin4" to="Coin4" method="_on_body_entered"]
 [connection signal="body_entered" from="Coin5" to="Coin5" method="_on_body_entered"]
 [connection signal="body_entered" from="Coin6" to="Coin6" method="_on_body_entered"]

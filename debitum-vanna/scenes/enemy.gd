@@ -68,6 +68,7 @@ func _physics_process(delta):
 	# 1. Si está atacando → no se mueve y reproduce punch
 	if atacando:
 		velocity.x = 0
+		$AudioStreamPlayer2D.play()
 		sprite.play("punch")
 	
 	# 2. Si ve al jugador → perseguir usando animación "attack"

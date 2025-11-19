@@ -8,7 +8,7 @@ var direction: int = 1 # 1 para derecha, -1 para izquierda
 func _ready():
 	# Conectar la señal de colisión (solo se destruye si golpea algo que no sea el player)
 	#body_entered.connect(_on_body_entered)
-	pass
+	$AudioStreamPlayer2D.play()
 
 func _process(delta):
 	# Mueve la bala en la dirección asignada
