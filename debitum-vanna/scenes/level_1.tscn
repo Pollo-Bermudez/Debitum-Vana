@@ -46346,6 +46346,38 @@ shape = SubResource("CircleShape2D_rscm6")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="kit3"]
 stream = ExtResource("29_8jqp6")
 
+[node name="kit5" type="Area2D" parent="."]
+z_index = 1
+position = Vector2(5596, 624)
+script = ExtResource("36_tdlki")
+
+[node name="Sprite2D" type="Sprite2D" parent="kit5"]
+position = Vector2(1, 0)
+scale = Vector2(0.16749983, 0.18399996)
+texture = ExtResource("37_v8pws")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kit5"]
+shape = SubResource("CircleShape2D_rscm6")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="kit5"]
+stream = ExtResource("29_8jqp6")
+
+[node name="kit4" type="Area2D" parent="."]
+z_index = 1
+position = Vector2(5141, 638)
+script = ExtResource("36_tdlki")
+
+[node name="Sprite2D" type="Sprite2D" parent="kit4"]
+position = Vector2(1, 0)
+scale = Vector2(0.16749983, 0.18399996)
+texture = ExtResource("37_v8pws")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kit4"]
+shape = SubResource("CircleShape2D_rscm6")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="kit4"]
+stream = ExtResource("29_8jqp6")
+
 [node name="Coin" type="Area2D" parent="."]
 position = Vector2(935, 630)
 script = ExtResource("34_1aans")
@@ -46736,6 +46768,10 @@ position = Vector2(8904, 599)
 [connection signal="finished" from="kit2/AudioStreamPlayer2D" to="kit2" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="kit3" to="kit3" method="_on_body_entered"]
 [connection signal="finished" from="kit3/AudioStreamPlayer2D" to="kit3" method="_on_audio_stream_player_2d_finished"]
+[connection signal="body_entered" from="kit5" to="kit5" method="_on_body_entered"]
+[connection signal="finished" from="kit5/AudioStreamPlayer2D" to="kit5" method="_on_audio_stream_player_2d_finished"]
+[connection signal="body_entered" from="kit4" to="kit4" method="_on_body_entered"]
+[connection signal="finished" from="kit4/AudioStreamPlayer2D" to="kit4" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="Coin" to="Coin" method="_on_body_entered"]
 [connection signal="finished" from="Coin/AudioStreamPlayer2D" to="Coin" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="Coin2" to="Coin2" method="_on_body_entered"]
