@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://ww4alvqmfvov"]
+[gd_scene load_steps=34 format=4 uid="uid://ww4alvqmfvov"]
 
 [ext_resource type="Script" uid="uid://lvkgpseusg16" path="res://nivel2/scripts/level_2.gd" id="1_rfhnx"]
 [ext_resource type="Texture2D" uid="uid://did0w46dq3v5x" path="res://nivel2/assets/tileMap/tileMapPorkis-1.png" id="2_6ie80"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://dgsu0knbcfp76" path="res://audio_Lv1/player_audios/jumping.mp3" id="8_sn7w3"]
 [ext_resource type="AudioStream" uid="uid://d7mm6v5c5bc1" path="res://audio_Lv1/player_audios/dashing.mp3" id="9_4xsan"]
 [ext_resource type="AudioStream" uid="uid://bck3mih487db2" path="res://audio_Lv1/player_audios/jumplanding-398256.mp3" id="10_x4vts"]
+[ext_resource type="PackedScene" uid="uid://cpgnx6sdux1gt" path="res://nivel2/scenes/ptas.tscn" id="11_4xsan"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4xsan"]
 texture = ExtResource("2_6ie80")
@@ -65182,6 +65183,9 @@ offset_top = -1.0
 offset_right = 1601.0
 offset_bottom = 899.0
 color = Color(0, 0, 0, 1)
+
+[node name="pta" parent="." instance=ExtResource("11_4xsan")]
+position = Vector2(902, 420)
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer2/Button3" to="." method="_on_button_3_pressed"]
