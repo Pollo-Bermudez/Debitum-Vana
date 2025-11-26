@@ -65352,7 +65352,7 @@ theme_override_font_sizes/font_size = 22
 text = "Salir al menú"
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("6_sn7w3")]
-position = Vector2(11719, 372)
+position = Vector2(214, 444)
 collision_mask = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -65441,7 +65441,7 @@ shape = SubResource("CircleShape2D_oe42u")
 stream = ExtResource("14_lpm0u")
 
 [node name="Coin3" type="Area2D" parent="."]
-position = Vector2(11637, 423)
+position = Vector2(11714, 467)
 script = ExtResource("12_ljh8n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coin3"]
@@ -65472,7 +65472,7 @@ stream = ExtResource("14_lpm0u")
 
 [node name="Cortesana" parent="." instance=ExtResource("12_lpm0u")]
 z_index = 1
-position = Vector2(11517, 431.00003)
+position = Vector2(11516, 431)
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer2/Button3" to="." method="_on_button_3_pressed"]
