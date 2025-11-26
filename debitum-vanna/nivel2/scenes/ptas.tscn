@@ -185,7 +185,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tdlki"]
 radius = 37.0
-height = 128.0
+height = 92.666664
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_15mv3"]
 size = Vector2(132, 158.25)
@@ -194,6 +194,7 @@ size = Vector2(132, 158.25)
 radius = 389.40082
 
 [node name="pta" type="CharacterBody2D"]
+scale = Vector2(1.2, 1.2)
 collision_layer = 2
 script = ExtResource("1_nf1re")
 

@@ -12,12 +12,15 @@ var spawn_position: Vector2 = Vector2(0, 0)
 func _ready():
 	create_instant_hud()
 	
+	
 	player = get_node_or_null("Player")
 	if player:
 		spawn_position = player.global_position	
 	
 	# Si tienes monedas visuales animadas
 	if has_node("Coin"): $Coin/AnimatedSprite2D.play("Girando")
+	if has_node("Coin2"): $Coin2/AnimatedSprite2D.play("Girando")
+	if has_node("Coin3"): $Coin3/AnimatedSprite2D.play("Girando")
 
 func _process(delta):
 	if player:
