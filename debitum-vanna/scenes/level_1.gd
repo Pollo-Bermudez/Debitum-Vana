@@ -1,12 +1,9 @@
 extends Node2D
 
 @export var game_over_scene : PackedScene
-
 @export var pixel_font : Font
 
-# Variables del juego
-var player_lives = 3
-var player_coins = 0
+# --- VARIABLES ---
 var lives_label: Label
 var coins_label: Label
 var player = Node2D
@@ -14,22 +11,22 @@ var death_y_limit = 1200
 var spawn_position: Vector2 = Vector2(0, 0)
 
 func _ready():
-	$Coin/AnimatedSprite2D.play("Girando")
-	$Coin2/AnimatedSprite2D.play("Girando")
-	$Coin3/AnimatedSprite2D.play("Girando")
-	$Coin4/AnimatedSprite2D.play("Girando")
-	$Coin5/AnimatedSprite2D.play("Girando")
-	$Coin6/AnimatedSprite2D.play("Girando")
-	$Coin7/AnimatedSprite2D.play("Girando")
-	create_instant_hud()
+	# Animaciones de monedas (asegúrate de que existen en la escena)
+	if has_node("Coin"): $Coin/AnimatedSprite2D.play("Girando")
+	if has_node("Coin2"): $Coin2/AnimatedSprite2D.play("Girando")
+	if has_node("Coin3"): $Coin3/AnimatedSprite2D.play("Girando")
+	if has_node("Coin4"): $Coin4/AnimatedSprite2D.play("Girando")
+	if has_node("Coin5"): $Coin5/AnimatedSprite2D.play("Girando")
+	if has_node("Coin6"): $Coin6/AnimatedSprite2D.play("Girando")
+	if has_node("Coin7"): $Coin7/AnimatedSprite2D.play("Girando")
 	
+	create_instant_hud()
 	
 	# Buscar el nodo del jugador en la escena
 	player = get_node_or_null("Player")
 	if player == null:
-		push_warning("⚠️ No se encontró el nodo del jugador. Verifica el nombre en el árbol de la escena.")
+		push_warning("⚠️ No se encontró el nodo del jugador.")
 	else:
-		# 1. Guardar la posición inicial del jugador (se ejecuta solo una vez)
 		spawn_position = player.global_position	
 
 func _process(delta):
@@ -44,6 +41,8 @@ func check_player_fall():
 		lose_life()
 		respawn_player()
 
+# --- HUD y ACTUALIZACIÓN DE DATOS ---
+
 func create_instant_hud():
 	# CanvasLayer
 	var hud = CanvasLayer.new()
@@ -52,84 +51,85 @@ func create_instant_hud():
 	# Vidas
 	lives_label = Label.new()
 	lives_label.position = Vector2(20, 20)
-	lives_label.text = "❤️ Vidas: " + str(player_lives)
-	
-	# ⬇️ 2. ASIGNA LA FUENTE Y EL TAMAÑO
 	if pixel_font:
 		lives_label.add_theme_font_override("font", pixel_font)
-	lives_label.add_theme_font_size_override("font_size", 16) # O el tamaño que se vea bien
-	
+	lives_label.add_theme_font_size_override("font_size", 16)
 	hud.add_child(lives_label)
 	
 	# Monedas
 	coins_label = Label.new()
 	coins_label.position = Vector2(20, 50)
-	coins_label.text = "🪙 " + str(player_coins)
-	
-	# ⬇️ 3. ASIGNA LA FUENTE Y EL TAMAÑO TAMBIÉN AQUÍ
 	if pixel_font:
 		coins_label.add_theme_font_override("font", pixel_font)
-	coins_label.add_theme_font_size_override("font_size", 20) # Usa el mismo tamaño
-	
+	coins_label.add_theme_font_size_override("font_size", 20)
 	hud.add_child(coins_label)
+	
+	# Actualizar texto inicial con los datos Globales
+	update_hud_text()
+
+func update_hud_text():
+	# Esta función actualiza las etiquetas leyendo del Global
+	if lives_label:
+		lives_label.text = "❤️ Vidas: " + str(Global.vidas)
+	if coins_label:
+		coins_label.text = "🪙 " + str(Global.monedas)
 
 func add_coin():
-	player_coins += 1
-	coins_label.text = "🪙 " + str(player_coins)
+	Global.monedas += 1
+	update_hud_text() # Actualizamos pantalla
 
 func lose_life():
-	player_lives -= 1
-	lives_label.text = "❤️ Vidas: " + str(player_lives)
+	Global.vidas -= 1
+	update_hud_text() # Actualizamos pantalla
 	
-	if player_lives <= 0:
+	if Global.vidas <= 0:
 		if player and is_instance_valid(player) and player.has_method("initiate_death"):
 			player.initiate_death()
-#Función para agregar vidas con el botiquin
-func add_life(amount: int = 1):
-	player_lives += amount
-	lives_label.text = "❤️ Vidas: " + str(player_lives)
-	print("💊 Vida recuperada. Total de vidas:", player_lives)
+		else:
+			game_over() # Si no tiene animación de muerte, Game Over directo
 
+# Función para agregar vidas con el botiquin
+func add_life(amount: int = 1):
+	Global.vidas += amount
+	update_hud_text()
+	print("💊 Vida recuperada. Total de vidas:", Global.vidas)
 
 func respawn_player():
-	# USO CORRECTO DE SPAWN_POSITION: Esto solo se usa cuando el jugador cae (check_player_fall).
 	if player and is_instance_valid(player):
-		player.global_position = spawn_position # Usa la posición guardada
+		player.global_position = spawn_position
 		print("☠️ El jugador cayó y regresó al spawn.")
-		
 
 func handle_player_death_cleanup():
 	game_over()
 
 func game_over():
 	print("Game Over! Cargando pantalla de opciones")
+	Global.reset_datos() # Reiniciamos los datos globales al morir
+	
 	if game_over_scene:
 		get_tree().change_scene_to_packed(game_over_scene)
 	else:
-		push_warning("La escena no se cargo en el nivel")
+		push_warning("La escena no se cargó en el nivel")
 
+# --- ZONAS Y BOTONES ---
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
-
+	pass 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	pass # Replace with function body.
+	pass 
 
-
-func _on_button_pressed() -> void:
+func _on_button_pressed() -> void: # Pausa
 	$CanvasLayer2.visible = true
 	$CanvasLayer.visible = false
 	get_tree().paused = !get_tree().paused
-	
 
-
-func _on_button_2_pressed() -> void:
+func _on_button_2_pressed() -> void: # Salir al Menú
+	Global.reset_datos() # Reseteamos datos al salir al menú principal
 	get_tree().paused = !get_tree().paused
 	get_tree().change_scene_to_file("res://menu_inicial/menu.tscn")
 
-
-func _on_button_3_pressed() -> void:
+func _on_button_3_pressed() -> void: # Continuar
 	$CanvasLayer2.visible = false
 	$CanvasLayer.visible = true
 	get_tree().paused = !get_tree().paused

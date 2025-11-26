@@ -22,6 +22,7 @@ buses/default_bus_layout=""
 [autoload]
 
 DialogosUi="*res://dialogos_ui.tscn"
+Global="*res://global.gd"
 
 [display]
 
