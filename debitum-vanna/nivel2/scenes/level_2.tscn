@@ -65471,7 +65471,8 @@ shape = SubResource("CircleShape2D_oe42u")
 stream = ExtResource("14_lpm0u")
 
 [node name="Cortesana" parent="." instance=ExtResource("12_lpm0u")]
-position = Vector2(11525, 420)
+z_index = 1
+position = Vector2(11517, 431.00003)
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer2/Button3" to="." method="_on_button_3_pressed"]

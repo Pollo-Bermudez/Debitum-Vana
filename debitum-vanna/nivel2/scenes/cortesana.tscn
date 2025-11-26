@@ -1,6 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvxhcaeqcid3l"]
+[gd_scene load_steps=9 format=3 uid="uid://dvxhcaeqcid3l"]
 
 [ext_resource type="Texture2D" uid="uid://bndquuj1i53vo" path="res://nivel2/assets/enemigos/sprite-cortesana.png" id="1_6gcf1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gcf1"]
+atlas = ExtResource("1_6gcf1")
+region = Rect2(0, 0, 1331, 2050)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_boihi"]
 atlas = ExtResource("1_6gcf1")
@@ -8,32 +12,36 @@ region = Rect2(0, 0, 1331, 2050)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b5t8x"]
 atlas = ExtResource("1_6gcf1")
-region = Rect2(1331, 2050, 1331, 2050)
+region = Rect2(1331, 0, 1331, 2050)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7ygs"]
 atlas = ExtResource("1_6gcf1")
-region = Rect2(2662, 0, 1331, 2050)
+region = Rect2(2662, 2050, 1331, 2050)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yuxlc"]
 atlas = ExtResource("1_6gcf1")
-region = Rect2(0, 2050, 1331, 2050)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2oh5g"]
-atlas = ExtResource("1_6gcf1")
-region = Rect2(1331, 0, 1331, 2050)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w5aqg"]
-atlas = ExtResource("1_6gcf1")
-region = Rect2(2662, 2050, 1331, 2050)
+region = Rect2(1331, 2050, 1331, 2050)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f0lhh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_6gcf1")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_boihi")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b5t8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boihi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boihi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7ygs")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u7ygs")
@@ -42,14 +50,17 @@ animations = [{
 "texture": SubResource("AtlasTexture_yuxlc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2oh5g")
+"texture": SubResource("AtlasTexture_yuxlc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w5aqg")
+"texture": SubResource("AtlasTexture_u7ygs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7ygs")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 2.0
+"speed": 3.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qupj3"]
@@ -64,6 +75,7 @@ scale = Vector2(0.15462963, 0.14861114)
 sprite_frames = SubResource("SpriteFrames_f0lhh")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.41137612
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(4, 0)
