@@ -1,0 +1,145 @@
+[gd_scene load_steps=18 format=3 uid="uid://ckvnmp7qv8asa"]
+
+[ext_resource type="Script" uid="uid://dc0tltp2tgwpq" path="res://nivel2/scripts/gordo_prox.gd" id="1_18klh"]
+[ext_resource type="Texture2D" uid="uid://ctxx0wt8sjtv2" path="res://nivel2/assets/enemigos/gordo-latigo.png" id="2_l4ot3"]
+[ext_resource type="Texture2D" uid="uid://c6yf0g30cqutb" path="res://nivel2/assets/enemigos/gordo-latigo-espejeada.png" id="3_nyfru"]
+[ext_resource type="Texture2D" uid="uid://tkjbh2txp55g" path="res://nivel2/assets/enemigos/gordo-walk.png" id="4_gvrdm"]
+[ext_resource type="AudioStream" uid="uid://dmw14mxyxb64x" path="res://nivel2/assets/enemigos/crackling-whip-356003.mp3" id="5_18klh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18klh"]
+atlas = ExtResource("2_l4ot3")
+region = Rect2(290, 332, 185, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4ot3"]
+atlas = ExtResource("2_l4ot3")
+region = Rect2(8, 166, 180, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyfru"]
+atlas = ExtResource("2_l4ot3")
+region = Rect2(8, 0, 180, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvrdm"]
+atlas = ExtResource("3_nyfru")
+region = Rect2(42, 166, 271, 166)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akq6f"]
+atlas = ExtResource("4_gvrdm")
+region = Rect2(2, 59, 124, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an40h"]
+atlas = ExtResource("4_gvrdm")
+region = Rect2(126, 59, 124, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fgma"]
+atlas = ExtResource("4_gvrdm")
+region = Rect2(250, 59, 124, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yr8fj"]
+atlas = ExtResource("4_gvrdm")
+region = Rect2(374, 59, 124, 170)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rus8k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18klh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4ot3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyfru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvrdm")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 7.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"punch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akq6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_an40h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fgma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yr8fj")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j18x3"]
+size = Vector2(205, 141.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_15mv3"]
+size = Vector2(320, 158.25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2os1m"]
+radius = 306.9557
+
+[node name="proxes" type="CharacterBody2D"]
+scale = Vector2(1.2, 1.2)
+collision_layer = 2
+script = ExtResource("1_18klh")
+
+[node name="PatrolTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-71.666664, -70)
+scale = Vector2(1.2231182, 0.8684147)
+sprite_frames = SubResource("SpriteFrames_rus8k")
+animation = &"attack"
+frame = 3
+frame_progress = 1.0
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(31.66667, 1.7708337)
+shape = SubResource("RectangleShape2D_j18x3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
+[node name="AttackArea" type="Area2D" parent="." groups=["player"]]
+position = Vector2(21, -8)
+collision_layer = 2
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(8.999996, -0.125)
+shape = SubResource("RectangleShape2D_15mv3")
+
+[node name="VisionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+position = Vector2(4, -2)
+shape = SubResource("CircleShape2D_2os1m")
+
+[node name="PunchTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_18klh")
+volume_db = -2.539
+pitch_scale = 1.44
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]

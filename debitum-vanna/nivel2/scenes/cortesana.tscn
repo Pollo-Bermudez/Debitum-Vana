@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvxhcaeqcid3l"]
+[gd_scene load_steps=10 format=3 uid="uid://dvxhcaeqcid3l"]
 
 [ext_resource type="Texture2D" uid="uid://bndquuj1i53vo" path="res://nivel2/assets/enemigos/sprite-cortesana.png" id="1_6gcf1"]
+[ext_resource type="Script" uid="uid://dwe32774g23r6" path="res://nivel2/scripts/cortesana.gd" id="1_boihi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6gcf1"]
 atlas = ExtResource("1_6gcf1")
@@ -64,10 +65,11 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qupj3"]
-radius = 113.004425
+radius = 213.84314
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 scale = Vector2(0.6, 0.6)
+script = ExtResource("1_boihi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1.9073486e-06)
@@ -83,3 +85,6 @@ position = Vector2(4, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-2, 1)
 shape = SubResource("CircleShape2D_qupj3")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://ww4alvqmfvov"]
+[gd_scene load_steps=48 format=4 uid="uid://ww4alvqmfvov"]
 
 [ext_resource type="Script" uid="uid://lvkgpseusg16" path="res://nivel2/scripts/level_2.gd" id="1_rfhnx"]
 [ext_resource type="Texture2D" uid="uid://did0w46dq3v5x" path="res://nivel2/assets/tileMap/tileMapPorkis-1.png" id="2_6ie80"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cqdg13jk5u3lu" path="res://sprites/Moneda poker.png" id="13_4wr77"]
 [ext_resource type="AudioStream" uid="uid://c6gxq58px11p4" path="res://scenes/get-coin.mp3" id="14_lpm0u"]
 [ext_resource type="PackedScene" uid="uid://dr8g86huirywg" path="res://scenes/game_over.tscn" id="15_4wr77"]
+[ext_resource type="PackedScene" uid="uid://ckvnmp7qv8asa" path="res://nivel2/scenes/gordo_prox.tscn" id="17_fa6rm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4xsan"]
 texture = ExtResource("2_6ie80")
@@ -65381,7 +65382,7 @@ offset_bottom = 899.0
 color = Color(0, 0, 0, 1)
 
 [node name="pta" parent="." instance=ExtResource("11_4xsan")]
-position = Vector2(902, 465)
+position = Vector2(1423, 420)
 
 [node name="pta2" parent="." instance=ExtResource("11_4xsan")]
 position = Vector2(1710, 454)
@@ -65473,6 +65474,9 @@ stream = ExtResource("14_lpm0u")
 [node name="Cortesana" parent="." instance=ExtResource("12_lpm0u")]
 z_index = 1
 position = Vector2(11516, 431)
+
+[node name="proxes" parent="." instance=ExtResource("17_fa6rm")]
+position = Vector2(1111, 340)
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer2/Button3" to="." method="_on_button_3_pressed"]
