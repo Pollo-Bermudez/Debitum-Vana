@@ -1,23 +1,24 @@
 extends CanvasLayer
 
-const LEVEL_SCENE_PATH = "res://scenes/level_1.tscn"
 const MENU_SCENE_PATH = "res://menu_inicial/menu.tscn"
 
 func _on_reiniciar_nivel_button_pressed():
-	var error = get_tree().change_scene_to_file(LEVEL_SCENE_PATH)
+	var nivel_a_cargar = ""
+	if Global.nivel_actual_path != "":
+		nivel_a_cargar = Global.nivel_actual_path
+	else:
+		nivel_a_cargar = "res://scenes/level_1.tscn" 
+	var error = get_tree().change_scene_to_file(nivel_a_cargar)
 	if error != OK:
-		push_warning("Error al cargar la escena")
+		push_warning("Error al cargar la escena: " + nivel_a_cargar)
 
 func _on_Volver_Menu_pressed():
 	var error = get_tree().change_scene_to_file(MENU_SCENE_PATH)
 	if error != OK:
 		push_warning("Error al regresar al menu")
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

@@ -88,11 +88,13 @@ func handle_player_death_cleanup():
 	game_over()
 
 func game_over():
-	# IMPORTANTE: Si muere definitivamente, reiniciamos los datos globales
-	Global.reset_datos()
-	
+	print("Game Over! Guardando ubicación y cargando pantalla")
+	Global.nivel_actual_path = scene_file_path 
+	Global.reset_datos() 
 	if game_over_scene:
 		get_tree().change_scene_to_packed(game_over_scene)
+	else:
+		push_warning("La escena de Game Over no está asignada")
 
 # --- MENÚ DE PAUSA (Igual que antes) ---
 func _on_button_pressed() -> void:

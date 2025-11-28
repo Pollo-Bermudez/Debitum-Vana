@@ -4,6 +4,9 @@ extends Node
 var vidas : int = 3
 var monedas : int = 0
 
+# Variable para recordar en qué nivel murió el jugador
+var nivel_actual_path : String = "" 
+
 # Función para reiniciar todo cuando sea Game Over
 func reset_datos():
 	vidas = 3
