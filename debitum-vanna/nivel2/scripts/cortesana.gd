@@ -1,7 +1,7 @@
 # En 'poeta.gd'
 extends CharacterBody2D
 
-@export var dialogo: Array[String] = ["Cortesana: Estás vacío, como todos los que pasan por aquí.","Willy (nervioso): ¿Qué sabes de vacío?", "Cortesana: Lo suficiente para ver que huyes de algo.", "Willy: Mejor vamos cerrando el Papoi x2"]
+@export var dialogo: Array[String] = ["Cortesana: Estás vacío, como todos los que pasan por aquí.","Willy (nervioso): ¿Qué sabes de vacío?", "Cortesana: Lo suficiente para ver que huyes de algo.", "Willy: que... otra vez... que pasa........"]
 
 # ¡RECUERDA ARRASTRAR 'flashback_papa.tscn' AQUÍ EN EL INSPECTOR!
 @export var escena_video_flashback: PackedScene
