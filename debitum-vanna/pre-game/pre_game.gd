@@ -3,8 +3,8 @@ extends Control
 
 
 @export var dialogo: Array[String] = ["Willy: Vaya, parece que solo me quedan 600 dolares", "Willy: Necesito pasar a la casa, si no, voy a perderlo TODO!!", "Willy: Que deberia hacer?"]
-@export var dialogo2: Array[String] = ["Willy: Recorcholis, he perdido tio", "Crupier: Lo siento, señor… la suerte no está de su lado.", "Willy (golpeando la mesa): ¡Otra mano! Apuesto lo que me queda…
-","Voz misteriosa: Willy, Willy… siempre pensando que puedes engañar a la banca. Nos debes un millón de Blitzcoins. Una semana. Ni un día más.", "Willy: Joder tio tengo que conseguir la pasta", "Willy: Eh???........Que pasa?"]
+@export var dialogo2: Array[String] = ["Willy: Carajo, he perdido", "Crupier: Lo siento, señor… la suerte no está de su lado.", "Willy (golpeando la mesa): ¡Otra mano! Apuesto todo lo que me queda…
+","Voz misteriosa: Willy, Willy… siempre pensando que puedes engañar a la banca. Nos debes un millón de Blitzcoins ya...", "Willy: Dame tiempo te juro que te pagaré", "Voz misteriosa: Una semana. Ni un día más.", "Willy: Joder tio tengo que conseguir la pasta", "Willy: Eh???........Que me pasa?"]
 @export var i: int = 0
 var is_active: bool = false
 
@@ -79,11 +79,15 @@ func _on_dialogo_avanzado(index: int):
 		#pass
 	
 	if index == 8:
+		$AudioStreamPlayer2D2.play()
+	
+	if index == 12:
 		$Continue.visible = false
+		is_active = false
 		#DialogosUi.visible = false
 		# Esa puta linea de mierda me costo una hora y media de mi vida, la 
 		# dejo como evidencia de por que luego no duermo
-		is_active = false
+		#await get_tree().create_timer(1).timeout
 		get_tree().change_scene_to_file("res://scenes/level_1.tscn")
 
 

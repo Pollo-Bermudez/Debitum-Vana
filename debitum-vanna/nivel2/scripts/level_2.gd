@@ -21,6 +21,10 @@ func _ready():
 	if has_node("Coin"): $Coin/AnimatedSprite2D.play("Girando")
 	if has_node("Coin2"): $Coin2/AnimatedSprite2D.play("Girando")
 	if has_node("Coin3"): $Coin3/AnimatedSprite2D.play("Girando")
+	if has_node("Coin3"): $Coin4/AnimatedSprite2D.play("Girando")
+	$AudioStreamPlayer.play()
+	$AudioStreamPlayer2D.play()
+	$AudioStreamPlayer2D2.play()
 
 func _process(delta):
 	if player:

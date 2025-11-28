@@ -1,7 +1,7 @@
 # En 'poeta.gd'
 extends CharacterBody2D
 
-@export var dialogo: Array[String] = ["Poeta: ¿Quién eres tú, viajero? ¿Otro fantasma perdido en la niebla?","Willy: Solo busco un millón de Blitzcoins.", "Poeta: (riendo con tristeza) Aquí solo encontrarás recuerdos. ¿Quieres uno?", "Willy: Mejor vamos cerrando el Papoi"]
+@export var dialogo: Array[String] = ["Poeta: ¿Quién eres tú, viajero? ¿Otro fantasma perdido en la niebla?","Willy: Solo busco un millón de Blitzcoins.", "Poeta: (riendo con tristeza) Aquí solo encontrarás recuerdos. ¿Quieres uno?", "Willy: que... esta... pasando....."]
 
 # ¡RECUERDA ARRASTRAR 'flashback_papa.tscn' AQUÍ EN EL INSPECTOR!
 @export var escena_video_flashback: PackedScene
@@ -35,6 +35,7 @@ func _input(event):
 # Esta función se llama cuando 'DialogosUi' emite la señal
 func on_dialogo_del_poeta_terminado():
 	$"../AudioStreamPlayer".stop()
+	$"../AudioStreamPlayer2D2".stop()
 	print("El diálogo del Poeta terminó. Lanzando video...")
 	
 	if not escena_video_flashback:

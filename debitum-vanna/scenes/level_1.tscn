@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://cnlcfua5os1sf"]
+[gd_scene load_steps=67 format=4 uid="uid://cnlcfua5os1sf"]
 
 [ext_resource type="PackedScene" uid="uid://bhiakd3rkh31t" path="res://scenes/character_body_2d.tscn" id="1_bswci"]
 [ext_resource type="Script" uid="uid://bmm77aoiry4uw" path="res://scenes/level_1.gd" id="1_rus8k"]
@@ -31,6 +31,8 @@
 [ext_resource type="AudioStream" uid="uid://c6gxq58px11p4" path="res://scenes/get-coin.mp3" id="31_bamb7"]
 [ext_resource type="PackedScene" uid="uid://dn72hosdf08p3" path="res://scenes/enemy.tscn" id="33_jscgt"]
 [ext_resource type="Script" uid="uid://b1h1vorkrr3gc" path="res://scenes/coin.gd" id="34_1aans"]
+[ext_resource type="AudioStream" uid="uid://jwgr0yfkqrw0" path="res://audio_Lv1/inicio-lvl1.mp3" id="35_1aans"]
+[ext_resource type="AudioStream" uid="uid://cdtkf08e1fddd" path="res://audio_Lv1/poeta.mp3" id="36_q0ron"]
 [ext_resource type="Script" uid="uid://cal60btfmkny3" path="res://scenes/kit.gd" id="36_tdlki"]
 [ext_resource type="Texture2D" uid="uid://cr5ckroulbkcr" path="res://Assets/Pixel_botiquin1.png" id="37_v8pws"]
 [ext_resource type="AudioStream" uid="uid://c0ew4rmtni13k" path="res://audio_Lv1/avismo.mp3" id="38_v8pws"]
@@ -46761,6 +46763,14 @@ position = Vector2(7258, 601)
 
 [node name="Enemy20" parent="." instance=ExtResource("33_jscgt")]
 position = Vector2(8904, 599)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(105, 550)
+stream = ExtResource("35_1aans")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(10952, 590)
+stream = ExtResource("36_q0ron")
 
 [connection signal="body_entered" from="kit" to="kit" method="_on_body_entered"]
 [connection signal="finished" from="kit/AudioStreamPlayer2D" to="kit" method="_on_audio_stream_player_2d_finished"]

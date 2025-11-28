@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://ww4alvqmfvov"]
+[gd_scene load_steps=51 format=4 uid="uid://ww4alvqmfvov"]
 
 [ext_resource type="Script" uid="uid://lvkgpseusg16" path="res://nivel2/scripts/level_2.gd" id="1_rfhnx"]
 [ext_resource type="Texture2D" uid="uid://did0w46dq3v5x" path="res://nivel2/assets/tileMap/tileMapPorkis-1.png" id="2_6ie80"]
@@ -17,6 +17,9 @@
 [ext_resource type="AudioStream" uid="uid://c6gxq58px11p4" path="res://scenes/get-coin.mp3" id="14_lpm0u"]
 [ext_resource type="PackedScene" uid="uid://dr8g86huirywg" path="res://scenes/game_over.tscn" id="15_4wr77"]
 [ext_resource type="PackedScene" uid="uid://ckvnmp7qv8asa" path="res://nivel2/scenes/gordo_prox.tscn" id="17_fa6rm"]
+[ext_resource type="AudioStream" uid="uid://3ifkasjv35vj" path="res://nivel2/assets/women-talking.mp3" id="18_oe42u"]
+[ext_resource type="AudioStream" uid="uid://bjyoonengrikc" path="res://nivel2/assets/creepy-female-ghost.mp3" id="18_sqhm7"]
+[ext_resource type="AudioStream" uid="uid://dogphro8xdxk7" path="res://nivel2/assets/cortesana.mp3" id="20_t7iyo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4xsan"]
 texture = ExtResource("2_6ie80")
@@ -65471,12 +65474,41 @@ shape = SubResource("CircleShape2D_oe42u")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Coin2"]
 stream = ExtResource("14_lpm0u")
 
+[node name="Coin4" type="Area2D" parent="."]
+position = Vector2(11301, -271)
+script = ExtResource("12_ljh8n")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coin4"]
+position = Vector2(3, 0)
+sprite_frames = SubResource("SpriteFrames_fa6rm")
+animation = &"Girando"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin4"]
+shape = SubResource("CircleShape2D_oe42u")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Coin4"]
+stream = ExtResource("14_lpm0u")
+
 [node name="Cortesana" parent="." instance=ExtResource("12_lpm0u")]
 z_index = 1
 position = Vector2(11516, 431)
 
 [node name="proxes" parent="." instance=ExtResource("17_fa6rm")]
 position = Vector2(1111, 340)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(3915, 481)
+stream = ExtResource("18_sqhm7")
+volume_db = -10.495
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_oe42u")
+volume_db = -9.541
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(11528, 416)
+stream = ExtResource("20_t7iyo")
+volume_db = -10.495
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer2/Button3" to="." method="_on_button_3_pressed"]
@@ -65487,3 +65519,5 @@ position = Vector2(1111, 340)
 [connection signal="finished" from="Coin3/AudioStreamPlayer2D" to="Coin3" method="_on_audio_stream_player_2d_finished"]
 [connection signal="body_entered" from="Coin2" to="Coin2" method="_on_body_entered"]
 [connection signal="finished" from="Coin2/AudioStreamPlayer2D" to="Coin2" method="_on_audio_stream_player_2d_finished"]
+[connection signal="body_entered" from="Coin4" to="Coin4" method="_on_body_entered"]
+[connection signal="finished" from="Coin4/AudioStreamPlayer2D" to="Coin4" method="_on_audio_stream_player_2d_finished"]

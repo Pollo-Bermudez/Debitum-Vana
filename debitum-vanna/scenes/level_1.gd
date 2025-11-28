@@ -19,6 +19,8 @@ func _ready():
 	if has_node("Coin5"): $Coin5/AnimatedSprite2D.play("Girando")
 	if has_node("Coin6"): $Coin6/AnimatedSprite2D.play("Girando")
 	if has_node("Coin7"): $Coin7/AnimatedSprite2D.play("Girando")
+	$AudioStreamPlayer2D.play()
+	$AudioStreamPlayer2D2.play()
 	
 	create_instant_hud()
 	
